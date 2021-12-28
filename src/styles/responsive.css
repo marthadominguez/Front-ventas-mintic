@@ -1,0 +1,23 @@
+@media (max-width: 920px) {
+    .sidebar {
+        display: none;
+    }
+    .header_button.menu {
+        position: absolute;
+        left: 0px;
+    }
+    header, main, footer {
+        grid-column: 1/13;
+    }
+}
+
+@media (min-width: 920px) {
+    .header_button.menu {
+        display: none;
+    }
+}
+
+
+
+
+
