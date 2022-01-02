@@ -1,4 +1,4 @@
-@media (max-width: 920px) {
+@media (max-width: 1060px) {
     .sidebar {
         display: none;
     }
@@ -11,11 +11,18 @@
     }
 }
 
-@media (min-width: 920px) {
+@media (min-width: 1060px) {
     .header_button.menu {
         display: none;
     }
 }
+
+@media (max-width: 1180px) {
+    .navbar_items .module_items {
+        font-size: 1.2rem;
+      }
+}
+
 
 
 

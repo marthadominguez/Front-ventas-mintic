@@ -17,12 +17,11 @@ function App() {
       <Router>
         <Routes>
           <Route path="/" element={<Layout />}>
-            <Route path="ventas" element={<RegistroVentas/>}/>
+            <Route path="registro-ventas" element={<RegistroVentas/>}/>
             <Route path="listado-ventas" element={<ListadoVentas/>}/>
-            <Route path="productos" element={<RegistroProductos/>}/>
+            <Route path="registro-productos" element={<RegistroProductos/>}/>
             <Route path="listado-productos" element={<ListadoProductos/>}/>
-            <Route path="usuarios" element={<Usuarios/>}/>
-            
+            <Route path="usuarios" element={<Usuarios/>}/>   
           </Route>
           <Route path="login" element={<Login/>}/>  
           <Route path="*" element={<NotFound/>}/>  

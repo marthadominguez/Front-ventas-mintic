@@ -1,93 +1,78 @@
+import React, { useEffect, useState } from "react"
+import { nanoid } from "nanoid"
+import { obtenerProductos } from "utils/api.js"
 
 const ListadoProductos = () => {
+    const [productos, setProductos] = useState([])
+
+    useEffect(() => {
+        const fetchProductos = async () => {
+             
+            await obtenerProductos(
+                (response) => {
+                    console.log("La respuesta que se recibe es:", response);
+                    setProductos(response.data)
+                    console.log("hasta acá no llega2")
+                },
+                (error) => {
+                    console.error("Salió un error y es:", error)
+                    console.log("hasta acá no llega3")
+                }
+            )
+        }
+        fetchProductos()    
+    }, [])
+
+    console.log("productos", productos);
+    
     return (
         <>
-            <div class="table_container">
-                <div class="table_header" id="listado_venta">
+            <div className="table_container">
+                <div className="table_header" id="listado_venta">
                     <h2 >Gestión de Productos</h2>
-                    <div class="search_input">
-                        <input class="search_text" type="search" placeholder="Buscar..." />
+                    <div className="search_input">
+                        <input className="search_text" type="search" placeholder="Buscar..." />
                         <select name="" id="">
                             <option value="Criterio">- Criterio -</option>
                             <option value="ID">ID Venta</option>
                             <option value="Documento">Documento</option>
                             <option value="Cliente">Cliente</option>
                         </select>
-                        <button class="search_btn"><span class="material-icons-round search_icon">search</span></button>
+                        <button className="search_btn"><span className="material-icons-round search_icon">search</span></button>
                     </div>
                 </div>
-                <div class="table_canvas">
-                    <table class="table">
+                <div className="table_canvas">
+                    <table className="table">
                         <thead>
-                        <tr class="table_row">
-                            <th scope="col">ID Producto</th>
-                            <th scope="col">Descripción</th>
-                            <th scope="col">Valor Unitario</th>
-                            <th scope="col">Estado</th>
-                            <th scope="col">Acciones</th>
-                        </tr>
+                            <tr className="table_row">
+                                <th className="texto" scope="col">ID Producto</th>
+                                <th className="texto" scope="col">Nombre</th>
+                                <th className="texto" scope="col">Descripción</th>
+                                <th className="texto" scope="col">Estado</th>
+                                <th className="numero" scope="col">Tamaño (cm)</th>
+                                <th className="numero" scope="col">Valor Unitario ($)</th>
+                                <th className="acciones" scope="col">Acciones</th>
+                            </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <td scope="row">01</td>
-                            <td scope="row"></td>
-                            <td scope="row">Datos</td>
-                            <td scope="row">Datos</td>
-                            <td scope="row">
-                                <button class="edit_btn"><span class="material-icons edit">edit</span></button>
-                                <button class="delete_btn"><span class="material-icons delete">delete</span></button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td scope="row">02</td>
-                            <td scope="row"></td>
-                            <td scope="row">Datos</td>
-                            <td scope="row">Datos</td>
-                            <td scope="row">
-                                <button class="edit_btn"><span class="material-icons edit">edit</span></button>
-                                <button class="delete_btn"><span class="material-icons delete">delete</span></button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td scope="row">03</td>
-                            <td scope="row"></td>
-                            <td scope="row">Datos</td>
-                            <td scope="row">Datos</td>
-                            <td scope="row">
-                                <button class="edit_btn"><span class="material-icons edit">edit</span></button>
-                                <button class="delete_btn"><span class="material-icons delete">delete</span></button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td scope="row"></td>
-                            <td scope="row"></td>
-                            <td scope="row"></td>
-                            <td scope="row"></td>
-                            <td scope="row">
-                                <button class="edit_btn"><span class="material-icons edit">edit</span></button>
-                                <button class="delete_btn"><span class="material-icons delete">delete</span></button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td scope="row"></td>
-                            <td scope="row"></td>
-                            <td scope="row"></td>
-                            <td scope="row"></td>
-                            <td scope="row">
-                                <button class="edit_btn"><span class="material-icons edit">edit</span></button>
-                                <button class="delete_btn"><span class="material-icons delete">delete</span></button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td scope="row"></td>
-                            <td scope="row"></td>
-                            <td scope="row"></td>
-                            <td scope="row"></td>
-                            <td scope="row">
-                                <button class="edit_btn"><span class="material-icons edit">edit</span></button>
-                                <button class="delete_btn"><span class="material-icons delete">delete</span></button>
-                            </td>
-                        </tr>   
+                            {productos.map((p)=>{
+                                return (
+                                    <tr key={nanoid()}>
+                                    <td className="texto" >{p._id.slice(15)}</td>
+                                    <td className="texto" >{p.nombre}</td>
+                                    <td className="texto">{p.descripcion}</td>
+                                    <td className="texto">{p.estado}</td>
+                                    <td className="numero">{p.tamano}</td>
+                                    <td className="numero">{p.valorUnitario}</td>
+                                    <td className="acciones">
+                                        <button title="Editar" className="edit_btn"><span className="material-icons edit">edit</span></button>
+                                        <button title="Eliminar" className="delete_btn"><span className="material-icons delete">delete</span></button>
+                                    </td>
+                                </tr>
+                                )
+                            }
+                            )                  
+                            }
                         </tbody>
                     </table>
                 </div>
