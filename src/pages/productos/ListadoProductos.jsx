@@ -7,6 +7,8 @@ import { Dialog, tabScrollButtonClasses } from "@mui/material"
 const ListadoProductos = () => {
     const [productos, setProductos] = useState([]);
     const [refetch, setRefetch] = useState(true);
+    const [busqueda, setBusqueda] = useState("");
+    const [productosFiltrados, setProductosFiltrados] = useState(productos)
 
     useEffect(() => {
         const fetchProductos = async () => {
@@ -29,13 +31,21 @@ const ListadoProductos = () => {
         
     }, [refetch])
 
+    useEffect (() => {
+        setProductosFiltrados(
+            productos.filter((elemento) => {
+                return JSON.stringify(elemento).toLowerCase().includes(busqueda.toLowerCase());
+            })
+        )
+    }, [busqueda, productos])
+
     return (
         <>
             <div className="table_container">
                 <div className="table_header" id="listado_venta">
                     <h2 >Gestión de Productos</h2>
                     <div className="search_input">
-                        <input className="search_text" type="search" placeholder="Buscar..." />
+                        <input value={busqueda} onChange={(e)=>{setBusqueda(e.target.value)}} className="search_text" type="search" placeholder="Buscar..." />
                         <select name="" id="">
                             <option value="Criterio">- Criterio -</option>
                             <option value="ID">ID Venta</option>
@@ -59,7 +69,7 @@ const ListadoProductos = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            {productos.map((p) => {
+                            {productosFiltrados.map((p) => {
                                 return (
                                     <FilaProducto p={p} key={nanoid()} setRefetch={setRefetch}></FilaProducto>
                                 )
