@@ -150,7 +150,7 @@ const FilaProducto = ({ p, setRefetch }) => {
                     <td className="texto">{p.descripcion}</td>
                     <td className="texto">{p.estado}</td>
                     <td className="numero">{p.tamano}</td>
-                    <td className="numero">{p.valorUnitario}</td>
+                    <td className="numero">{p.valorUnitario.replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                 </>)}
             {editar ? (<>
                 <td className="acciones">
