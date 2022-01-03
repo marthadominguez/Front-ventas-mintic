@@ -2,10 +2,11 @@ import React, { useEffect, useState } from "react"
 import { nanoid } from "nanoid"
 import { obtenerProductos, eliminarProducto, editarProducto } from "utils/api.js"
 import { toast } from "react-toastify"
-import { Dialog } from "@mui/material"
+import { Dialog, tabScrollButtonClasses } from "@mui/material"
 
 const ListadoProductos = () => {
-    const [productos, setProductos] = useState([])
+    const [productos, setProductos] = useState([]);
+    const [refetch, setRefetch] = useState(true);
 
     useEffect(() => {
         const fetchProductos = async () => {
@@ -13,15 +14,20 @@ const ListadoProductos = () => {
             await obtenerProductos(
                 (response) => {
                     console.log("La respuesta que se recibe es:", response);
-                    setProductos(response.data)
+                    setProductos(response.data);
+                    setRefetch(false)
                 },
                 (error) => {
                     console.error("Salió un error y es:", error)
                 }
             )
         }
-        fetchProductos()
-    }, [])
+        
+        if (refetch) {
+            fetchProductos()
+        }
+        
+    }, [refetch])
 
     return (
         <>
@@ -55,7 +61,7 @@ const ListadoProductos = () => {
                         <tbody>
                             {productos.map((p) => {
                                 return (
-                                    <FilaProducto p={p} key={nanoid()}></FilaProducto>
+                                    <FilaProducto p={p} key={nanoid()} setRefetch={setRefetch}></FilaProducto>
                                 )
                             }
                             )
@@ -68,7 +74,7 @@ const ListadoProductos = () => {
     )
 }
 
-const FilaProducto = ({ p }) => {
+const FilaProducto = ({ p, setRefetch }) => {
 
     const [ openDialog, setOpenDialog ] = useState(false)
 
@@ -96,6 +102,7 @@ const FilaProducto = ({ p }) => {
                 console.log(response.data);
                 toast.success("Producto editado con éxito");
                 setEditar(false);
+                setRefetch(true);
             },
             (error) => {
                 console.error(error);
@@ -110,7 +117,8 @@ const FilaProducto = ({ p }) => {
             p._id,
             (response) => {
                 console.log(response.data);
-                toast.success("Producto eliminado con éxito")
+                toast.success("Producto eliminado con éxito");
+                setRefetch(true)
             },
             (error) => {
                 console.error(error);
