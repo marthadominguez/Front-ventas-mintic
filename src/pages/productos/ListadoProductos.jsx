@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react"
 import { nanoid } from "nanoid"
-import { obtenerProductos } from "utils/api.js"
+import { obtenerProductos, eliminarProducto } from "utils/api.js"
+import { toast } from "react-toastify"
 
 const ListadoProductos = () => {
     const [productos, setProductos] = useState([])
 
     useEffect(() => {
         const fetchProductos = async () => {
-             
+
             await obtenerProductos(
                 (response) => {
                     console.log("La respuesta que se recibe es:", response);
@@ -18,11 +19,9 @@ const ListadoProductos = () => {
                 }
             )
         }
-        fetchProductos()    
+        fetchProductos()
     }, [])
 
-    console.log("productos", productos);
-    
     return (
         <>
             <div className="table_container">
@@ -53,23 +52,20 @@ const ListadoProductos = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            {productos.map((p)=>{
+                            {productos.map((p) => {
                                 return (
                                     <tr key={nanoid()}>
-                                    <td className="texto" >{p._id.slice(15)}</td>
-                                    <td className="texto" >{p.nombre}</td>
-                                    <td className="texto">{p.descripcion}</td>
-                                    <td className="texto">{p.estado}</td>
-                                    <td className="numero">{p.tamano}</td>
-                                    <td className="numero">{p.valorUnitario}</td>
-                                    <td className="acciones">
-                                        <button title="Editar" className="edit_btn"><span className="material-icons edit">edit</span></button>
-                                        <button title="Eliminar" className="delete_btn"><span className="material-icons delete">delete</span></button>
-                                    </td>
-                                </tr>
+                                        <td className="texto" >{p._id.slice(15)}</td>
+                                        <td className="texto" >{p.nombre}</td>
+                                        <td className="texto">{p.descripcion}</td>
+                                        <td className="texto">{p.estado}</td>
+                                        <td className="numero">{p.tamano}</td>
+                                        <td className="numero">{p.valorUnitario}</td>
+                                            <AccionProducto p={p}></AccionProducto>
+                                    </tr>
                                 )
                             }
-                            )                  
+                            )
                             }
                         </tbody>
                     </table>
@@ -78,5 +74,31 @@ const ListadoProductos = () => {
         </>
     )
 }
+
+const AccionProducto = ({p}) => {
+
+    const eliminacionDeProducto = async () => {
+        await eliminarProducto(
+            p._id, 
+            (response)=>{
+                console.log(response.data);
+                toast.success("Producto eliminado con éxito")
+            },
+            (error)=>{
+                console.error(error);
+                toast.error("Error eliminando el producto")
+            },
+        )
+    }
+
+    return (
+        <td className="acciones">
+            <button title="Editar" className="edit_btn"><span className="material-icons edit">edit</span></button>
+            <button title="Eliminar" onClick={() => eliminacionDeProducto()} className="delete_btn"><span className="material-icons delete">delete</span></button>
+        </td>
+    )
+
+}
+
 
 export default ListadoProductos

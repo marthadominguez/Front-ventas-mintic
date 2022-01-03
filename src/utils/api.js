@@ -32,5 +32,7 @@ export const crearProducto = async (data, successCallback, errorCallback) => {
 // export const editarProducto = async (successCallback, errorCallback) => {
 // }
 
-// export const eliminarProducto = async(successCallback, errorCallback) => {
-// }
+export const eliminarProducto = async (id, successCallback, errorCallback) => {
+  const options = {method: 'DELETE', url: `${baseURL}/productos/${id}`};
+  await axios.request(options).then(successCallback).catch(errorCallback);
+}
