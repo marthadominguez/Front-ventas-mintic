@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react"
 import { nanoid } from "nanoid"
 import { obtenerProductos, eliminarProducto, editarProducto } from "utils/api.js"
 import { toast } from "react-toastify"
+import { Dialog } from "@mui/material"
 
 const ListadoProductos = () => {
     const [productos, setProductos] = useState([])
@@ -69,6 +70,8 @@ const ListadoProductos = () => {
 
 const FilaProducto = ({ p }) => {
 
+    const [ openDialog, setOpenDialog ] = useState(false)
+
     const [editar, setEditar] = useState(false);
     const [infoNuevoProducto, setInfoNuevoProducto] = useState({
         _id: p._id,
@@ -114,13 +117,14 @@ const FilaProducto = ({ p }) => {
                 toast.error("Error eliminando el producto")
             },
         )
+        setOpenDialog(false);
     }
 
     return (
         <tr>
             {editar ? (
                 <>
-                    <td>{p._id.slice(15)}</td>
+                    <td>{p._id.slice(18)}</td>
                     <td><input type="text" name="nombre" className="edit_input" value={infoNuevoProducto.nombre} onChange={(e)=>setInfoNuevoProducto({...infoNuevoProducto, nombre: e.target.value})}/></td>
                     <td className="descripcion"><textarea name="descripcion" className="edit_input textarea_edit" value={infoNuevoProducto.descripcion} onChange={(e)=>setInfoNuevoProducto({...infoNuevoProducto, descripcion: e.target.value})}/></td>
                     <td className="estado">
@@ -133,7 +137,7 @@ const FilaProducto = ({ p }) => {
                     <td><input type="number" name="tamano" className="edit_input numero" value={infoNuevoProducto.valorUnitario} onChange={(e)=>setInfoNuevoProducto({...infoNuevoProducto, valorUnitario: e.target.value})}/></td>
                 </>) : (
                 <>
-                    <td className="texto">{p._id.slice(15)}</td>
+                    <td className="texto">{p._id.slice(18)}</td>
                     <td className="texto">{p.nombre}</td>
                     <td className="texto">{p.descripcion}</td>
                     <td className="texto">{p.estado}</td>
@@ -142,16 +146,23 @@ const FilaProducto = ({ p }) => {
                 </>)}
             {editar ? (<>
                 <td className="acciones">
-                    <button title="Editar" onClick={() => actualizarProducto()} className="edit_btn"><span className="material-icons edit">check_circle</span></button >
-                    <button title="Cancelar" onClick={() => setEditar(!editar)} className="delete_btn"><span className="material-icons delete">cancel</span></button>
+                    <button title="Editar" onClick={() => actualizarProducto()} className="edit_btn"><span className="material-icons edit">done</span></button >
+                    <button title="Cancelar" onClick={() => setEditar(!editar)} className="delete_btn"><span className="material-icons delete">clear</span></button>
                 </td >
             </>) : (
                 <>
                     <td className="acciones">
                         <button title="Editar" onClick={() => setEditar(!editar)} className="edit_btn"><span className="material-icons edit">edit</span></button >
-                        <button title="Eliminar" onClick={() => eliminacionDeProducto()} className="delete_btn"><span className="material-icons delete">delete</span></button>
+                        <button title="Eliminar" onClick={() => setOpenDialog(true)} className="delete_btn"><span className="material-icons delete">delete</span></button>
                     </td >
                 </>)}
+                <Dialog open={openDialog}>
+                    <div className="dialog_eliminar_prod">
+                        <h1>¿Está seguro que quiere eliminar el producto?</h1>
+                        <button className="yes" title="Editar" onClick={() => eliminacionDeProducto()}>SI</button >
+                        <button className="no" title="Eliminar" onClick={() => setOpenDialog(false)}>NO</button>
+                    </div>
+                </Dialog>
         </tr >
     )
 }

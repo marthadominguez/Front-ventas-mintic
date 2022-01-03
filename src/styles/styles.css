@@ -571,3 +571,27 @@ input[type=number] {
 .toast {
   font-size: 1.6rem;
 }
+
+/* Dialog Eliminar producto */
+.dialog_eliminar_prod {
+  padding: 3rem;
+  text-align: center;
+}
+
+.dialog_eliminar_prod h1 {
+  margin-bottom: 2rem;
+}
+
+.dialog_eliminar_prod button {
+  width: 9rem;
+  padding: 1rem 0;
+  margin: 1rem;
+  border-radius: 1rem;
+  background-color: var(--gris-azulaceo);
+  color: var(--azul-oscuro);
+}
+
+.dialog_eliminar_prod button:hover {
+  background-color: var(--azul-oscuro);
+  color: var(--blanco);
+}
