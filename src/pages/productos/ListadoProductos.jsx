@@ -12,11 +12,9 @@ const ListadoProductos = () => {
                 (response) => {
                     console.log("La respuesta que se recibe es:", response);
                     setProductos(response.data)
-                    console.log("hasta acá no llega2")
                 },
                 (error) => {
                     console.error("Salió un error y es:", error)
-                    console.log("hasta acá no llega3")
                 }
             )
         }

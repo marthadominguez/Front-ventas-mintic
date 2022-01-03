@@ -7,7 +7,7 @@ export const obtenerProductos = async (successCallback, errorCallback) => {
     // const options = { method: 'GET', url: `${baseURL}/productos/` };
     const options = {
         method: 'GET',
-        url: 'http://localhost:5000/productos',
+        url: `${baseURL}/productos/`,
         params: {'': ''},
         headers: {'Content-Type': 'application/json'}
       };
@@ -19,17 +19,12 @@ export const obtenerProductos = async (successCallback, errorCallback) => {
     // });
 }
 
-export const crearProducto = async (successCallback, errorCallback) => {
+export const crearProducto = async (data, successCallback, errorCallback) => {
   const options = {
     method: 'POST',
-    url: 'http://localhost:5000/productos',
+    url: `${baseURL}/productos/`,
     headers: {'Content-Type': 'application/json'},
-    data: {
-      descripcion: 'esta es una descripcion',
-      tamano: '6cm',
-      valorUnitario: '1000',
-      estado: 'DISPONIBLE'
-    }
+    data
   };
   await axios.request(options).then(successCallback).catch(errorCallback);
 }
