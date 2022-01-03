@@ -355,7 +355,7 @@ main {
   background-color: #f1f4f8; 
 }
 
-/* Registro de ventas */
+/* Registro*/
 .table_container, .custom_record {
   width: 90%;
   height: fit-content;
@@ -414,6 +414,10 @@ main {
   height: 8rem;
 }
 
+.textarea_edit {
+  font-family: var(--fuente-secundaria);
+}
+
 .register_btn {
   grid-column: 1 / span 2;
   justify-self: center;
@@ -442,7 +446,7 @@ textarea {
   resize: vertical;
 }
 
-/* Listado de ventas */
+/* Listado*/
 .table {
   width: 100%;
   height: fit-content;
@@ -462,14 +466,14 @@ textarea {
 
 .table thead th {
   border-bottom: .2rem solid var(--gris-medio);
-  padding: 1rem 1.5rem;
+  padding: 1.5rem;
 }
 
-th.texto, td.texto {
+th.texto, td.texto, input.texto {
   text-align: left;
 }
 
-th.numero, td.numero {
+th.numero, td.numero, input.numero {
   text-align: right;
 }
 
@@ -479,12 +483,20 @@ th.acciones, td.acciones {
 }
 
 .table tbody td {
-  line-height: 2rem;
+  /* line-height: 2rem; */
   border-top: 2px solid var(--gris-claro2);
   padding: .5rem 1.5rem;
   hyphens: auto;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.descripcion {
+  width: 30rem;
+}
+
+.estado {
+  width: 15rem;
 }
 
 tbody tr:hover {
@@ -505,6 +517,20 @@ tbody tr:hover {
   color: var(--azul-oscuro);
 }
 
+/* Edit input styles */
+
+.edit_input {
+  width: 100%;
+  padding: 0.7rem .5rem;
+  background-color: var(--gris-claro);
+  border-radius: 1rem;
+  border-style: none;
+  outline: none;
+  color: var(--gris-oscuro);
+  font-family: var(--fuente-secundaria);
+  font-size: 1.2rem;
+}
+
 /* Not Found page */
 .not-found {
   height: 100vh;
@@ -516,7 +542,6 @@ tbody tr:hover {
   color: var(--azul-oscuro);
 
 }
-
 
 footer {
   grid-column: 3/13;

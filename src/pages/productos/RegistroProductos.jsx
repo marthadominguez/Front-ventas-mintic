@@ -56,7 +56,7 @@ const RegistroProductos = () => {
                     <label htmlFor="tamano">Tamaño (cm)</label>
                     <input className="custom_input" type="number" placeholder="Ingresa el tamaño en cm" name="tamano" id="tamano" required />
 
-                    <label htmlFor="valorUnitario">Valor Unitario ($)</label>
+                    <label htmlFor="valorUnitario">Vr. Unitario ($)</label>
                     <input className="custom_input" type="number" placeholder="Ingresa el valor en pesos" name="valorUnitario" id="valorUnitario" required />
 
                     <div className="register_btn">
