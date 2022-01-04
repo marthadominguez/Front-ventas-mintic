@@ -50,7 +50,7 @@ const RegistroVentas = () => {
         const datosVenta = {
             vendedor: vendedores.filter((v)=>v._id===formData.vendedor)[0],
             cantidad: formData.cantidad,
-            vehiculos: listaProductos
+            productos: listaProductos
         }
 
         await crearVenta(
@@ -84,7 +84,7 @@ const RegistroVentas = () => {
     return (
         <div className="custom_record">
             <h2 id="registro_venta">Nuevo registro de Venta</h2>
-            <form ref={form} className="custom-sales_form">
+            <form ref={form} onSubmit={submitForm} className="custom-sales_form">
 
                 <label htmlFor="nombreCliente">Cliente</label>
                 <input className="custom_input" type="text" placeholder="Nombre completo del cliente" name="nombreCliente" id="nombreCliente" required />
@@ -127,13 +127,10 @@ const RegistroVentas = () => {
                     <select
                         className="custom_input"
                         id="producto"
-                        required
                         value={productoAAgregar._id ?? ""}
                         onChange={(e) => setProductoAAgregar(productos.filter((p) => p._id === e.target.value)[0])}>
-
                         <option disabled value="">- Seleccione el producto -</option>
                         {productos.map((p) => { return (<option key={nanoid()} value={p._id}>{`${p.nombre} - ${p.tamano}cm`}</option>) })}
-
                     </select>
                     <button type="button" onClick={() => { agregarNuevoProducto() }} className="edit_btn add_btn">
                         <span className="material-icons-round">add_circle</span>
