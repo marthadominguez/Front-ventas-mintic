@@ -30,17 +30,28 @@ const RegistroVentas = () => {
     }, []);
 
     const agregarNuevoProducto = () => {
-        setFilasTabla([...filasTabla, productoAAgregar]);
-        setProductos(productos.filter((p) => p._id !== productoAAgregar._id));
-        setProductoAAgregar({});
+        if (productoAAgregar._id === undefined) {
+            <></>
+        } else {
+            setFilasTabla([...filasTabla, productoAAgregar]);
+            setProductos(productos.filter((p) => p._id !== productoAAgregar._id));
+            setProductoAAgregar({});
+        }
     };
 
     const modificarProducto = () => { };
 
     const quitarProducto = (productoAQuitar) => {
-        setFilasTabla(filasTabla.filter((ft)=> ft._id !== productoAQuitar._id));
+        setFilasTabla(filasTabla.filter((ft) => ft._id !== productoAQuitar._id));
         setProductos([...productos, productoAQuitar]);
-     };
+    };
+
+    useEffect(
+        () => {
+            console.log("hola", productoAAgregar);
+            console.log("soy id", productoAAgregar._id)
+        }
+        , [productoAAgregar])
 
     return (
         <div className="custom_record">
@@ -85,47 +96,46 @@ const RegistroVentas = () => {
 
                 <label htmlFor="producto">Producto</label>
                 <div className="select_add-producto">
-
                     <select
-                        name="producto" id="producto"
                         className="custom_input"
-                        required value={productoAAgregar._id ?? ""}
+                        id="producto"
+                        required
+                        value={productoAAgregar._id ?? ""}
                         onChange={(e) => setProductoAAgregar(productos.filter((p) => p._id === e.target.value)[0])}>
 
-                        <option value="" disabled>- Seleccione el producto -</option>
+                        <option disabled value="">- Seleccione el producto -</option>
                         {productos.map((p) => { return (<option key={nanoid()} value={p._id}>{`${p.nombre} - ${p.tamano}cm`}</option>) })}
 
                     </select>
-                    <button onClick={() => { agregarNuevoProducto() }} className="edit_btn add_btn">
+                    <button type="button" onClick={() => { agregarNuevoProducto() }} className="edit_btn add_btn">
                         <span className="material-icons-round">add_circle</span>
                     </button>
-
                 </div>
-                
-                    <table className="table custom-sales_table">
-                        <thead>
-                            <tr className="table_row">
-                                <th className="texto">Producto</th>
-                                <th className="numero">Vr. Unitario ($)</th>
-                                <th className="numero">Cantidad</th>
-                                <th className="acciones">Quitar</th>
+
+                <table className="table custom-sales_table">
+                    <thead>
+                        <tr className="table_row">
+                            <th className="texto">Producto</th>
+                            <th className="numero">Vr. Unitario ($)</th>
+                            <th className="numero">Cantidad</th>
+                            <th className="acciones">Quitar</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>{filasTabla.map((ft) => {
+                        return (
+                            <tr key={nanoid()}>
+                                <td className="texto">{`${ft.nombre} - ${ft.tamano}cm`}</td>
+                                <td className="numero">{ft.valorUnitario}</td>
+                                <td className="numero">cantidad</td>
+                                <td className="acciones">
+                                    <button onClick={() => { quitarProducto(ft) }} className="delete_btn"><span className="material-icons delete">remove_circle_outline</span></button>
+                                </td>
                             </tr>
-                        </thead>
+                        )
+                    })}</tbody>
 
-                        <tbody> {filasTabla.map((ft) => {
-                            return (
-                                <tr key={nanoid()}>
-                                    <td className="texto">{`${ft.nombre} - ${ft.tamano}cm`}</td>
-                                    <td className="numero">{ft.valorUnitario}</td>
-                                    <td className="numero">cantidad</td>
-                                    <td className="acciones">
-                                        <button onClick={()=>{quitarProducto(ft)}} className="delete_btn"><span className="material-icons delete">remove_circle_outline</span></button>
-                                    </td>
-                                </tr>
-                            )
-                        })} </tbody>
-
-                    </table>
+                </table>
 
                 <div className="register_btn">
                     <button type="reset" className="">Reset</button>
