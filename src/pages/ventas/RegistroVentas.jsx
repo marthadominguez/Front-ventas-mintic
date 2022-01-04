@@ -1,8 +1,7 @@
 import React, { useRef, useState, useEffect } from "react";
 import { toast } from 'react-toastify';
-import { obtenerProductos, obtenerUsuarios } from "utils/api";
+import { obtenerProductos, obtenerUsuarios, crearVenta } from "utils/api";
 import { nanoid } from "nanoid";
-import { eliminarProducto } from "utils/api";
 
 const RegistroVentas = () => {
     const form = useRef(null);
@@ -10,6 +9,7 @@ const RegistroVentas = () => {
     const [productos, setProductos] = useState([]);
     const [filasTabla, setFilasTabla] = useState([]);
     const [productoAAgregar, setProductoAAgregar] = useState({})
+    const [productosTabla, setProductosTabla] = useState([])
 
     useEffect(() => {
         const fetchVendedores = async () => {
@@ -29,6 +29,41 @@ const RegistroVentas = () => {
 
     }, []);
 
+    useEffect(()=>{
+        setProductosTabla(filasTabla)
+    },[filasTabla])
+
+    const submitForm = async (e) => {
+        e.preventDefault();
+        const fd = new FormData(form.current);
+        const formData = {};
+        fd.forEach((value,key)=>{
+            formData[key] = value;
+        })
+        const listaProductos = Object.keys(formData).map((k)=>{
+            if (k.includes("producto")) {
+                return productosTabla.filter((p)=>p._id === formData[k][0])
+            } return null;
+        }).filter((p)=>p);
+        // el anterior filtro me filtra los que no son NULL. Para que no me salgan undefined. 
+
+        const datosVenta = {
+            vendedor: vendedores.filter((v)=>v._id===formData.vendedor)[0],
+            cantidad: formData.cantidad,
+            vehiculos: listaProductos
+        }
+
+        await crearVenta(
+            datosVenta, 
+            (response) => {
+                console.log("La respuesta que se recibe es:", response);
+            },
+            (error) => {
+                console.error("Salió un error y es:", error)
+            }
+        )
+    }
+
     const agregarNuevoProducto = () => {
         if (productoAAgregar._id === undefined) {
             <></>
@@ -45,13 +80,6 @@ const RegistroVentas = () => {
         setFilasTabla(filasTabla.filter((ft) => ft._id !== productoAQuitar._id));
         setProductos([...productos, productoAQuitar]);
     };
-
-    useEffect(
-        () => {
-            console.log("hola", productoAAgregar);
-            console.log("soy id", productoAAgregar._id)
-        }
-        , [productoAAgregar])
 
     return (
         <div className="custom_record">
@@ -119,18 +147,24 @@ const RegistroVentas = () => {
                             <th className="numero">Vr. Unitario ($)</th>
                             <th className="numero">Cantidad</th>
                             <th className="acciones">Quitar</th>
+                            <th className="hidden">input</th>
                         </tr>
                     </thead>
 
-                    <tbody>{filasTabla.map((ft) => {
+                    <tbody>{filasTabla.map((ft, index) => {
                         return (
                             <tr key={nanoid()}>
                                 <td className="texto">{`${ft.nombre} - ${ft.tamano}cm`}</td>
                                 <td className="numero">{ft.valorUnitario}</td>
-                                <td className="numero">cantidad</td>
+                                <td className="numero">
+                                    <label htmlFor={`cantidad_${ft.index}`}>
+                                    <input className="cantidad_input" type="number" name={`cantidad_${ft.index}`}/>
+                                    </label>
+                                </td>
                                 <td className="acciones">
                                     <button onClick={() => { quitarProducto(ft) }} className="delete_btn"><span className="material-icons delete">remove_circle_outline</span></button>
                                 </td>
+                                <td className="hidden"><input hidden defaultValue={ft._id} name={`producto_${ft.index}`}/></td>
                             </tr>
                         )
                     })}</tbody>

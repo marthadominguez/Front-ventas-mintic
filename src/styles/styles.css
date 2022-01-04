@@ -609,3 +609,21 @@ input[type=number] {
 #producto.custom_input {
   width: 100%;
 }
+
+.hidden {
+  display: none;
+}
+
+.cantidad_input {
+  text-align: right;
+  width: 5rem;
+  height: 3rem;
+  padding: 0 1rem;
+  background-color: var(--gris-claro);
+  border-radius: .7rem;
+  border-style: none;
+  outline: none;
+  color: var(--gris-oscuro);
+  font-family: var(--fuente-secundaria);
+  
+}

@@ -40,6 +40,10 @@ export const eliminarProducto = async (id, successCallback, errorCallback) => {
 }
 
 // CRUD DE VENTAS
+export const crearVenta = async (data, successCallback, errorCallback) => {
+  const options = {method: 'POST', url: `${baseURL}/ventas`, data};
+  await axios.request(options).then(successCallback).catch(errorCallback);
+}
 
 // CRUD DE USUARIOS
 export const obtenerUsuarios = async (successCallback, errorCallback) => {
