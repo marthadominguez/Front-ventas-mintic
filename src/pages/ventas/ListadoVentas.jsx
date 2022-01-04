@@ -3,7 +3,7 @@ const ListadoVentas = () => {
     return (
         <>
             <div className="table_container">
-                <div className="table_header" id="listado_venta">
+                <div className="table_header">
                     <h2 >Gestión de Ventas</h2>
                     <div className="search_input">
                         <input className="search_text" type="search" placeholder="Buscar..." />
@@ -20,17 +20,17 @@ const ListadoVentas = () => {
                     <table className="table">
                         <thead>
                             <tr className="table_row">
-                                <th scope="col">ID</th>
-                                <th scope="col">Vr. Total</th>
-                                <th scope="col">ID Producto</th>
-                                <th scope="col">Cantidad</th>
-                                <th scope="col">Precio Unit.</th>
-                                <th scope="col">Fecha</th>
-                                <th scope="col">Documento</th>
-                                <th scope="col">Nombre Cliente</th>
-                                <th scope="col">Vendedor</th>
-                                <th scope="col">Estado</th>
-                                <th scope="col">Acciones</th>
+                                <th>ID</th>
+                                <th>Vr. Total</th>
+                                <th>ID Producto</th>
+                                <th>Cantidad</th>
+                                <th>Precio Unit.</th>
+                                <th>Fecha</th>
+                                <th>Documento</th>
+                                <th>Nombre Cliente</th>
+                                <th>Vendedor</th>
+                                <th>Estado</th>
+                                <th>Acciones</th>
                             </tr>
                         </thead>
                         <tbody>

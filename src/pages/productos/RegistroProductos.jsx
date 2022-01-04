@@ -47,8 +47,8 @@ const RegistroProductos = () => {
                     <textarea className="custom_input textarea" name="descripcion" id="descripcion" required></textarea>
 
                     <label htmlFor="estado">Estado</label>
-                    <select name="estado" className="custom_input" required defaultValue={0}>
-                        <option disabled value={0}>Selecciona un estado</option>
+                    <select name="estado" className="custom_input" required defaultValue="">
+                        <option disabled value="">Selecciona un estado</option>
                         <option >Disponible</option>
                         <option >No disponible</option>
                     </select>

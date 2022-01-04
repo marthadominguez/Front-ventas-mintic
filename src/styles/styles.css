@@ -348,7 +348,7 @@ li:first-of-type {
   color: var(--blanco);
 }
 
-/* Estilos ventas*/
+/* Estilos main*/
 main {
   grid-column: 3/13;
   height: 100%;
@@ -370,15 +370,20 @@ main {
   padding: 10px 0 5px 0;
 }
 
-.sales_form {
+.custom-sales_form {
   display: grid;
   align-items: center;
-  margin-top: 5px;
+  margin: .5rem 0 10rem;
   padding: 8px 30px;
   grid-template-columns: 1fr 4fr;
-  width: 50%;
+  width: 60%;
   background-color: var(--blanco);
   border-radius: 10px;
+}
+
+.custom-sales_table {
+    grid-column: 1 / span 2;
+    justify-self: center;
 }
 
 .custom_form {
@@ -503,7 +508,7 @@ tbody tr:hover {
   background-color: var(--gris-azulaceo);
 }
 
-.edit_btn, .delete_btn {
+.edit_btn, .delete_btn, .add_btn {
   margin: .2rem;
   padding: .2rem;
   background-color: inherit;
@@ -513,7 +518,7 @@ tbody tr:hover {
   vertical-align: middle;
 }
 
-.edit_btn:hover, .delete_btn:hover {
+.edit_btn:hover, .delete_btn:hover, .add_btn:hover {
   color: var(--azul-oscuro);
 }
 
@@ -594,4 +599,13 @@ input[type=number] {
 .dialog_eliminar_prod button:hover {
   background-color: var(--azul-oscuro);
   color: var(--blanco);
+}
+
+.select_add-producto {
+  display: flex;
+  justify-content: space-between;
+}
+
+#producto.custom_input {
+  width: 100%;
 }

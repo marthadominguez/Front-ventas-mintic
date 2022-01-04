@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react"
 import { nanoid } from "nanoid"
 import { obtenerProductos, eliminarProducto, editarProducto } from "utils/api.js"
 import { toast } from "react-toastify"
-import { Dialog, tabScrollButtonClasses } from "@mui/material"
+import { Dialog } from "@mui/material"
 
 const ListadoProductos = () => {
     const [productos, setProductos] = useState([]);
@@ -24,14 +24,14 @@ const ListadoProductos = () => {
                 }
             )
         }
-        
+
         if (refetch) {
             fetchProductos()
         }
-        
+
     }, [refetch])
 
-    useEffect (() => {
+    useEffect(() => {
         setProductosFiltrados(
             productos.filter((elemento) => {
                 return JSON.stringify(elemento).toLowerCase().includes(busqueda.toLowerCase());
@@ -45,7 +45,7 @@ const ListadoProductos = () => {
                 <div className="table_header" id="listado_venta">
                     <h2 >Gestión de Productos</h2>
                     <div className="search_input">
-                        <input value={busqueda} onChange={(e)=>{setBusqueda(e.target.value)}} className="search_text" type="search" placeholder="Buscar..." />
+                        <input value={busqueda} onChange={(e) => { setBusqueda(e.target.value) }} className="search_text" type="search" placeholder="Buscar..." />
                         <select name="" id="">
                             <option value="Criterio">- Criterio -</option>
                             <option value="ID">ID Venta</option>
@@ -59,13 +59,13 @@ const ListadoProductos = () => {
                     <table className="table">
                         <thead>
                             <tr className="table_row">
-                                <th className="texto" scope="col">ID</th>
-                                <th className="texto" scope="col">Nombre</th>
-                                <th className="texto" scope="col">Descripción</th>
-                                <th className="texto" scope="col">Estado</th>
-                                <th className="numero" scope="col">Tamaño (cm)</th>
-                                <th className="numero" scope="col">Vr. Unitario ($)</th>
-                                <th className="acciones" scope="col">Acciones</th>
+                                <th className="texto">ID</th>
+                                <th className="texto">Nombre</th>
+                                <th className="texto">Descripción</th>
+                                <th className="texto">Estado</th>
+                                <th className="numero">Tamaño (cm)</th>
+                                <th className="numero">Vr. Unitario ($)</th>
+                                <th className="acciones">Acciones</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -86,7 +86,7 @@ const ListadoProductos = () => {
 
 const FilaProducto = ({ p, setRefetch }) => {
 
-    const [ openDialog, setOpenDialog ] = useState(false)
+    const [openDialog, setOpenDialog] = useState(false)
 
     const [editar, setEditar] = useState(false);
     const [infoNuevoProducto, setInfoNuevoProducto] = useState({
@@ -95,7 +95,7 @@ const FilaProducto = ({ p, setRefetch }) => {
         descripcion: p.descripcion,
         estado: p.estado,
         tamano: p.tamano,
-        valorUnitario: p.valorUnitario   
+        valorUnitario: p.valorUnitario
     })
 
     const actualizarProducto = async () => {
@@ -143,16 +143,16 @@ const FilaProducto = ({ p, setRefetch }) => {
             {editar ? (
                 <>
                     <td>{p._id.slice(18)}</td>
-                    <td><input type="text" name="nombre" className="edit_input" value={infoNuevoProducto.nombre} onChange={(e)=>setInfoNuevoProducto({...infoNuevoProducto, nombre: e.target.value})}/></td>
-                    <td className="descripcion"><textarea name="descripcion" className="edit_input textarea_edit" value={infoNuevoProducto.descripcion} onChange={(e)=>setInfoNuevoProducto({...infoNuevoProducto, descripcion: e.target.value})}/></td>
+                    <td><input type="text" name="nombre" className="edit_input" value={infoNuevoProducto.nombre} onChange={(e) => setInfoNuevoProducto({ ...infoNuevoProducto, nombre: e.target.value })} /></td>
+                    <td className="descripcion"><textarea name="descripcion" className="edit_input textarea_edit" value={infoNuevoProducto.descripcion} onChange={(e) => setInfoNuevoProducto({ ...infoNuevoProducto, descripcion: e.target.value })} /></td>
                     <td className="estado">
-                        <select name="estado" className="edit_input" required value={infoNuevoProducto.estado} onChange={(e)=>setInfoNuevoProducto({...infoNuevoProducto, estado: e.target.value})}>
+                        <select name="estado" className="edit_input" required value={infoNuevoProducto.estado} onChange={(e) => setInfoNuevoProducto({ ...infoNuevoProducto, estado: e.target.value })}>
                             <option >Disponible</option>
                             <option >No disponible</option>
                         </select>
                     </td>
-                    <td><input type="number" name="tamano" className="edit_input numero" value={infoNuevoProducto.tamano} onChange={(e)=>setInfoNuevoProducto({...infoNuevoProducto, tamano: e.target.value})}/></td>
-                    <td><input type="number" name="tamano" className="edit_input numero" value={infoNuevoProducto.valorUnitario} onChange={(e)=>setInfoNuevoProducto({...infoNuevoProducto, valorUnitario: e.target.value})}/></td>
+                    <td><input type="number" name="tamano" className="edit_input numero" value={infoNuevoProducto.tamano} onChange={(e) => setInfoNuevoProducto({ ...infoNuevoProducto, tamano: e.target.value })} /></td>
+                    <td><input type="number" name="tamano" className="edit_input numero" value={infoNuevoProducto.valorUnitario} onChange={(e) => setInfoNuevoProducto({ ...infoNuevoProducto, valorUnitario: e.target.value })} /></td>
                 </>) : (
                 <>
                     <td className="texto">{p._id.slice(18)}</td>
@@ -174,13 +174,13 @@ const FilaProducto = ({ p, setRefetch }) => {
                         <button title="Eliminar" onClick={() => setOpenDialog(true)} className="delete_btn"><span className="material-icons delete">delete</span></button>
                     </td >
                 </>)}
-                <Dialog open={openDialog}>
-                    <div className="dialog_eliminar_prod">
-                        <h1>¿Está seguro que quiere eliminar el producto?</h1>
-                        <button className="yes" title="Editar" onClick={() => eliminacionDeProducto()}>SI</button >
-                        <button className="no" title="Eliminar" onClick={() => setOpenDialog(false)}>NO</button>
-                    </div>
-                </Dialog>
+            <Dialog open={openDialog}>
+                <div className="dialog_eliminar_prod">
+                    <h1>¿Está seguro que quiere eliminar el producto?</h1>
+                    <button className="yes" title="Editar" onClick={() => eliminacionDeProducto()}>SI</button >
+                    <button className="no" title="Eliminar" onClick={() => setOpenDialog(false)}>NO</button>
+                </div>
+            </Dialog>
         </tr >
     )
 }
