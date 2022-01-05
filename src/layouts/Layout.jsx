@@ -8,13 +8,13 @@ import 'react-toastify/dist/ReactToastify.css';
 const Layout = () => {
     return (
         <>
-        <div className="body_grid">
-            <Header></Header>
-            <Sidebar></Sidebar>
-            <main><Outlet/></main>
-            <Footer></Footer>      
-        </div>
-        <ToastContainer className="toast" position="top-center" autoClose={5000}></ToastContainer>
+            <div className="body_grid">
+                <Header></Header>
+                <Sidebar></Sidebar>
+                <main><Outlet /></main>
+                <Footer></Footer>
+            </div>
+            <ToastContainer className="toast" position="top-center" autoClose={5000}></ToastContainer>
         </>
     )
 }

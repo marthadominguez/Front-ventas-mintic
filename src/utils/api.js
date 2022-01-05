@@ -3,13 +3,18 @@ import axios from "axios";
 
 const baseURL = "http://localhost:5000"
 
+// guardar el token en el localstorage. En todos los headers debemos poner la autorización
+const getToken = () => {
+  return `Bearer ${localStorage.getItem('token')}`;
+};
+
 // CRUD DE PRODUCTOS
 export const obtenerProductos = async (successCallback, errorCallback) => {
     const options = {
         method: 'GET',
         url: `${baseURL}/productos/`,
         params: {'': ''},
-        headers: {'Content-Type': 'application/json'}
+        headers: {'Content-Type': 'application/json', 'Authorization': getToken()}
       };
     await axios.request(options).then(successCallback).catch(errorCallback);
 }
@@ -51,4 +56,18 @@ export const obtenerUsuarios = async (successCallback, errorCallback) => {
   await axios.request(options).then(successCallback).catch(errorCallback);
 }
 
+// Usado para guardar la info de auth0
+export const obtenerDatosUsuario = async (successCallback, errorCallback) => {
+ const options = {
+    method: 'GET',
+    url: `${baseURL}/usuarios/self/`,
+    headers: {
+      Authorization: getToken(), // 3. Aquí le enviamos el token al back
+    },
+  };
+  await axios.request(options).then(successCallback).catch(errorCallback);
+}; 
 
+export const editarUsuario = async () => {
+  
+}

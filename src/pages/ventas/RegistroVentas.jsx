@@ -179,13 +179,13 @@ const RegistroVentas = () => {
 
 export default RegistroVentas
 
-{/* <label htmlFor="estadoVenta">Estado</label>
-<select name="estadoVenta" id="estadoVenta" className="custom_input">
-    <option value="Estado">- Estado -</option>
-    <option value="En proceso">En proceso</option>
-    <option value="Entregada">Entregada</option>
-    <option value="Cancelada">Cancelada</option>
-</select> */}
+// <label htmlFor="estadoVenta">Estado</label>
+// <select name="estadoVenta" id="estadoVenta" className="custom_input">
+//     <option value="Estado">- Estado -</option>
+//     <option value="En proceso">En proceso</option>
+//     <option value="Entregada">Entregada</option>
+//     <option value="Cancelada">Cancelada</option>
+// </select> 
 
-{/* <label htmlFor="fecha">Fecha</label>
-<input className="custom_input" type="date" placeholder="Fecha (dd/mm/aaaa)" name="fecha" id="fecha" required /> */}
+// <label htmlFor="fecha">Fecha</label>
+// <input className="custom_input" type="date" placeholder="Fecha (dd/mm/aaaa)" name="fecha" id="fecha" required /> 

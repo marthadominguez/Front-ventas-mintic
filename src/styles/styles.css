@@ -201,7 +201,7 @@ header {
 }
 
 .header .material-icons-round.header_icons{
-  font-size: 3.6rem;
+  font-size: 4.3rem;
   color: var(--azul-oscuro);
   margin-left: 10px;
 }
@@ -209,10 +209,10 @@ header {
 .header .header_button {
   font-size: 2.4rem;
   color: var(--azul-oscuro);
-  margin-left: 10px;
+  margin: 0 2rem 0 1rem;
   background-color: var(--gris-azulaceo);
-  border-radius: 20px;
-  padding: 3px;
+  border-radius: 50%;
+  padding: .7rem;
 }
 
 .header .header_button:hover {
@@ -625,5 +625,14 @@ input[type=number] {
   outline: none;
   color: var(--gris-oscuro);
   font-family: var(--fuente-secundaria);
-  
+}
+
+.btn_bg {
+  background-color: inherit;
+}
+
+.profile_picture {
+  width: 3.5rem;
+  margin-left: 1rem;
+  border-radius: 50%;
 }

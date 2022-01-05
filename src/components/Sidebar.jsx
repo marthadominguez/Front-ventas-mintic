@@ -35,7 +35,7 @@ const Sidebar = () => {
                             <span className="navbar_icons material-icons">manage_accounts</span>
                             <span>Usuarios</span>
                         </div>
-                        <NavLink titulo="Gestión de usuarios" ruta="usuarios" />
+                        <NavLink titulo="Gestión de usuarios" ruta="listado-usuarios" />
                     </div>
                 </li>
             </ul>
