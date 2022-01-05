@@ -6,7 +6,7 @@ const Header = () => {
 
     const cerrarSesion = () => {
         localStorage.setItem('token', null);
-        logout({ returnTo: 'https://localhost:3000' });
+        logout({ returnTo: 'http://localhost:3000/' });
     };
 
     return (

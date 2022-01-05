@@ -1,6 +1,7 @@
 import 'styles/styles.css';
 import 'styles/responsive.css'
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import PrivateLayout from 'layouts/PrivateLayout';
 import Layout from 'layouts/Layout';
 import RegistroVentas from 'pages/ventas/RegistroVentas';
 import ListadoVentas from 'pages/ventas/ListadoVentas';
@@ -18,13 +19,13 @@ function App() {
     <Auth0Provider
     domain="sistema-ventas.us.auth0.com"
     clientId="QTIh1sIfSTok7zOkD3Y2D9sIAIBEMH2E"
-    redirectUri="http://localhost:3000/home"
+    redirectUri="http://localhost:3000/"
     audience='api-sistema-ventas'
     >
       <div className="App">
         <Router>
           <Routes>
-            <Route path="/" element={<Layout />}>
+            <Route path="/" element={<PrivateLayout />}>
               <Route path="registro-ventas" element={<RegistroVentas />} />
               <Route path="listado-ventas" element={<ListadoVentas />} />
               <Route path="registro-productos" element={<RegistroProductos />} />
