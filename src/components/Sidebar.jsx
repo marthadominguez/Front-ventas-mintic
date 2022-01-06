@@ -6,7 +6,7 @@ const Sidebar = () => {
     return (
         <nav className="navbar_container sidebar">
             <div className="navbar_title">
-                <h2>MLD</h2>
+                <h2>m l d</h2>
             </div>
             <ul>
                 <li className="navbar_items">

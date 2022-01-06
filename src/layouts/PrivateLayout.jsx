@@ -7,10 +7,11 @@ import Header from 'components/Header';
 import Footer from 'components/Footer';
 import { Outlet } from "react-router-dom"
 import { ToastContainer } from 'react-toastify';
+// import ReactLoading from 'react-loading';
 
 const PrivateLayout = () => {
-  const { isAuthenticated, isLoading, loginWithRedirect, getAccessTokenSilently, logout } = useAuth0();
-//   const [loadingUserInformation, setLoadingUserInformation] = useState(false);
+  const { isAuthenticated, getAccessTokenSilently, logout } = useAuth0();
+  // const [loadingUserInformation, setLoadingUserInformation] = useState(false);
 //   const { setUserData } = useUser();
 
   useEffect(() => {
@@ -30,7 +31,7 @@ const PrivateLayout = () => {
         (response) => {
           console.log('response con datos del usuario', response);
           // setUserData(response.data);
-        //   setLoadingUserInformation(false);
+        // setLoadingUserInformation(false);
         },
         (err) => {
           console.log('err', err);
@@ -46,8 +47,7 @@ const PrivateLayout = () => {
     }
   }, [isAuthenticated, getAccessTokenSilently, logout, ]);
 
-//   if (isLoading || loadingUserInformation)
-//     return <ReactLoading type='cylon' color='#abc123' height={667} width={375} />;
+  // if (isLoading || loadingUserInformation) return <ReactLoading type='spin' color='#0091EB' height={100} width={100} className='loading'/>;
 
   // if (!isAuthenticated) {
   //   return loginWithRedirect();

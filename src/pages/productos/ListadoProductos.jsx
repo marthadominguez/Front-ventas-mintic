@@ -45,13 +45,7 @@ const ListadoProductos = () => {
                     <h2 >Gestión de Productos</h2>
                     <div className="search_input">
                         <input value={busqueda} onChange={(e) => { setBusqueda(e.target.value) }} className="search_text" type="search" placeholder="Buscar..." />
-                        <select name="" id="">
-                            <option value="Criterio">- Criterio -</option>
-                            <option value="ID">ID Venta</option>
-                            <option value="Documento">Documento</option>
-                            <option value="Cliente">Cliente</option>
-                        </select>
-                        <button className="search_btn"><span className="material-icons-round search_icon">search</span></button>
+                        <span className="material-icons-round search_icon">search</span>
                     </div>
                 </div>
                 <div className="table_canvas">

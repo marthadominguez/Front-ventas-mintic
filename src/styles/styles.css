@@ -233,16 +233,17 @@ header {
 }
 
 .search_input .search_icon {
-  color: var(--azul-oscuro);
+  color: var(--gris-medio);
+  padding-right: 0.5rem;
   font-size: 2.4rem;
 }
 
-.search_input .search_btn {
+/* .search_input .search_btn {
   background-color: var(--blanco);
   width: 32px;
   height: 32px;
   border-radius: 0 10px 10px 0;
-}
+} */
 
 .search_input .search_text {
   border: none;
@@ -651,6 +652,7 @@ input[type=number] {
 }
 
 .custom_input_users {
+  width: 15rem;
   height: 3rem;
   margin: .5rem;
   padding: 0 1rem;
