@@ -4,9 +4,13 @@ import { useAuth0 } from '@auth0/auth0-react';
 const Header = () => {
     const { user, loginWithRedirect, logout } = useAuth0();
 
+    console.log('usuario es', user);
+
     const cerrarSesion = () => {
-        localStorage.setItem('token', null);
+        console.log("hasta aquí no llega111")
         logout({ returnTo: 'http://localhost:3000/' });
+        console.log("hasta aquí no llega")
+        localStorage.setItem('token', null);
     };
 
     return (
@@ -16,7 +20,7 @@ const Header = () => {
                 {user ? (
                     <>
                         <span>{user.name}</span>
-                        <img className='profile_picture' src={user.picture} />
+                        <img alt='Imagen de perfil' className='profile_picture' src={user.picture} />
                         <button title="Cerrar sesión" className='btn_bg' onClick={() => cerrarSesion()}>
                             <span className="material-icons-round header_button">logout</span>
                         </button>

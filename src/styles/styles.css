@@ -489,6 +489,7 @@ th.acciones, td.acciones {
 
 .table tbody td {
   /* line-height: 2rem; */
+  height: 4.5rem;
   border-top: 2px solid var(--gris-claro2);
   padding: .5rem 1.5rem;
   hyphens: auto;
@@ -636,3 +637,28 @@ input[type=number] {
   margin-left: 1rem;
   border-radius: 50%;
 }
+
+.user_picture {
+  width: 3.5rem;
+  border-radius: 50%;
+  margin: 0;
+  padding: 0;
+}
+
+.table .user_pic_td {
+  padding: .7rem 0;
+  text-align: right;
+}
+
+.custom_input_users {
+  height: 3rem;
+  margin: .5rem;
+  padding: 0 1rem;
+  background-color: var(--gris-claro);
+  border-radius: 1rem;
+  border-style: none;
+  outline: none;
+  color: var(--gris-oscuro);
+  font-family: var(--fuente-secundaria);
+}
+

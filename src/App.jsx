@@ -2,7 +2,7 @@ import 'styles/styles.css';
 import 'styles/responsive.css'
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import PrivateLayout from 'layouts/PrivateLayout';
-import Layout from 'layouts/Layout';
+import PublicLayout from 'layouts/PublicLayout';
 import RegistroVentas from 'pages/ventas/RegistroVentas';
 import ListadoVentas from 'pages/ventas/ListadoVentas';
 import RegistroProductos from 'pages/productos/RegistroProductos';

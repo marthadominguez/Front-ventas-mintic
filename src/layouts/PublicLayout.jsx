@@ -5,7 +5,7 @@ import { Outlet } from "react-router-dom"
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-const Layout = () => {
+const PublicLayout = () => {
     return (
         <>
             <div className="body_grid">
@@ -19,4 +19,4 @@ const Layout = () => {
     )
 }
 
-export default Layout
+export default PublicLayout

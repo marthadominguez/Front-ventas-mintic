@@ -56,7 +56,7 @@ const RegistroVentas = () => {
         await crearVenta(
             datosVenta, 
             (response) => {
-                console.log("La respuesta que se recibe es:", response);
+                console.log("Datos venta: La respuesta que se recibe es:", response);
             },
             (error) => {
                 console.error("Salió un error y es:", error)

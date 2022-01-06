@@ -15,7 +15,7 @@ const ListadoProductos = () => {
 
             await obtenerProductos(
                 (response) => {
-                    console.log("La respuesta que se recibe es:", response);
+                    console.log("Productos: La respuesta que se recibe es:", response);
                     setProductos(response.data);
                     setRefetch(false)
                 },
@@ -24,7 +24,6 @@ const ListadoProductos = () => {
                 }
             )
         }
-
         if (refetch) {
             fetchProductos()
         }
