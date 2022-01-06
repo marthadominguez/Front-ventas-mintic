@@ -1,7 +1,7 @@
 // url: url del servidor donde está la api. 
 import axios from "axios";
 
-const baseURL = "http://localhost:5000"
+const baseURL = "https://whispering-shelf-30468.herokuapp.com/"
 
 // guardar el token en el localstorage. En todos los headers debemos poner la autorización
 const getToken = () => {
