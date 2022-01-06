@@ -7,9 +7,7 @@ const Header = () => {
     console.log('usuario es', user);
 
     const cerrarSesion = () => {
-        console.log("hasta aquí no llega111")
-        logout({ returnTo: 'http://localhost:3000/' });
-        console.log("hasta aquí no llega")
+        logout({ returnTo: 'https://sistema-ventas-mld.herokuapp.com/' });
         localStorage.setItem('token', null);
     };
 
