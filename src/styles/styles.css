@@ -551,14 +551,16 @@ tbody tr:hover {
 }
 
 footer {
+  display: flex;
   grid-column: 3/13;
   grid-row: -1;
+  align-items: center;
+  justify-content: center;
   align-self: end;
-  height: 30px;
-  line-height: 30px;
+  height: auto;
+  padding: .5rem;
   background-color: var(--azul-oscuro);
   color: var(--blanco);
-  text-align: center;
   font-size: 1.4rem;
   font-weight: 300;
 }
@@ -664,3 +666,18 @@ input[type=number] {
   font-family: var(--fuente-secundaria);
 }
 
+footer p {
+  display: inline;
+  margin: 0 .7rem;
+  /* margin-right: 1rem; */
+}
+
+footer i {
+  margin: 0 .7rem;
+  font-size: 2.4rem;
+  color: var(--blanco);
+}
+
+.link {
+  cursor: pointer;
+}

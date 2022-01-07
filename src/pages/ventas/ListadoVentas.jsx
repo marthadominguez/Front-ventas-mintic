@@ -20,17 +20,17 @@ const ListadoVentas = () => {
                     <table className="table">
                         <thead>
                             <tr className="table_row">
-                                <th>ID</th>
-                                <th>Vr. Total</th>
-                                <th>ID Producto</th>
-                                <th>Cantidad</th>
-                                <th>Precio Unit.</th>
-                                <th>Fecha</th>
-                                <th>Documento</th>
-                                <th>Nombre Cliente</th>
-                                <th>Vendedor</th>
-                                <th>Estado</th>
-                                <th>Acciones</th>
+                                <th className="texto">ID</th>
+                                <th className="texto">Vr. Total</th>
+                                <th className="texto">ID Producto</th>
+                                <th className="texto">Cantidad</th>
+                                <th className="texto">Precio Unit.</th>
+                                <th className="texto">Fecha</th>
+                                <th className="texto">Documento</th>
+                                <th className="texto">Nombre Cliente</th>
+                                <th className="texto">Vendedor</th>
+                                <th className="texto">Estado</th>
+                                <th className="acciones">Acciones</th>
                             </tr>
                         </thead>
                         <tbody>
