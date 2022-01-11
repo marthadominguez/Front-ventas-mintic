@@ -1,7 +1,8 @@
 // url: url del servidor donde está la api. 
 import axios from "axios";
 
-const baseURL = "https://whispering-shelf-30468.herokuapp.com"
+const baseURL = "http://localhost:5000"
+// const baseURL = "https://whispering-shelf-30468.herokuapp.com"
 
 // guardar el token en el localstorage. En todos los headers debemos poner la autorización
 const getToken = () => {
@@ -46,13 +47,18 @@ export const eliminarProducto = async (id, successCallback, errorCallback) => {
 
 // CRUD DE VENTAS
 export const crearVenta = async (data, successCallback, errorCallback) => {
-  const options = { method: 'POST', url: `${baseURL}/ventas`,  headers: { 'Content-Type': 'application/json', Authorization: getToken()}, data };
+  const options = { method: 'POST', url: `${baseURL}/ventas/`,  headers: { 'Content-Type': 'application/json', Authorization: getToken()}, data };
   await axios.request(options).then(successCallback).catch(errorCallback);
 }
 
 // CRUD DE USUARIOS
 export const obtenerUsuarios = async (successCallback, errorCallback) => {
   const options = { method: 'GET', url: `${baseURL}/usuarios/`, headers: { Authorization: getToken() } };
+  await axios.request(options).then(successCallback).catch(errorCallback);
+}
+
+export const obtenerVendedores = async (successCallback, errorCallback) => {
+  const options = { method: 'GET', url: `${baseURL}/usuarios/vendedores/`, headers: { Authorization: getToken() } };
   await axios.request(options).then(successCallback).catch(errorCallback);
 }
 

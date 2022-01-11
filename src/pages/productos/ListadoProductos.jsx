@@ -15,7 +15,7 @@ const ListadoProductos = () => {
 
             await obtenerProductos(
                 (response) => {
-                    console.log("Productos: La respuesta que se recibe es:", response);
+                    console.log("Productos:", response);
                     setProductos(response.data);
                     setRefetch(false)
                 },
@@ -153,7 +153,7 @@ const FilaProducto = ({ p, setRefetch }) => {
                     <td className="texto">{p.descripcion}</td>
                     <td className="texto">{p.estado}</td>
                     <td className="numero">{p.tamano}</td>
-                    <td className="numero">{p.valorUnitario.replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
+                    <td className="numero">{p.valorUnitario}</td>
                 </>)}
             {editar ? (<>
                 <td className="acciones">

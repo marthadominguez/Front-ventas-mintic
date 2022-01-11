@@ -71,6 +71,7 @@ const ListadoUsuarios = () => {
 
 const RolesUsuario = ({ user }) => {
     const [rol, setRol] = useState(user.rol)
+
     useEffect(() => {
         const EditUsuario = async () => {
             await editarUsuario(user._id, { rol }, (response) => { console.log(response.data) }, (error) => { console.error(error) })
@@ -79,21 +80,22 @@ const RolesUsuario = ({ user }) => {
             EditUsuario()
         }
     }
-        , [rol])
+        , [rol, user])
     return (
         <select className="custom_input_users" value={rol} onChange={(e) => setRol(e.target.value)}>
             <option value="" disabled>
                 Seleccione un rol
             </option>
-            <option value='admin'>Admin</option>
-            <option value='vendedor'>Vendedor</option>
             <option value='sin rol'>No asignado</option>
+            <option value='admin'>Admin</option>
+            <option value='vendedor'>Vendedor</option>  
         </select>
     )
 }
 
 const EstadoUsuario = ({ user }) => {
-    const [estado, setEstado] = useState(user.estado)
+    const [estado, setEstado] = useState(user.estado ?? "")
+
     useEffect(() => {
         const EditUsuario = async () => {
             await editarUsuario(user._id, { estado }, (response) => { console.log(response.data) }, (error) => { console.error(error) })
@@ -102,7 +104,7 @@ const EstadoUsuario = ({ user }) => {
             EditUsuario()
         }
     }
-        , [estado])
+        , [estado, user])
     return (
         <select className="custom_input_users" value={estado} onChange={(e) => setEstado(e.target.value)}>
             <option value="" disabled>

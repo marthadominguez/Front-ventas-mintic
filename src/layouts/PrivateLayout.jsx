@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import Sidebar from 'components/Sidebar';
 import { useAuth0 } from '@auth0/auth0-react';
 import { obtenerDatosUsuario } from 'utils/api';
-// import { useUser } from 'context/userContext';
+import { useUser } from 'context/userContext';
 import Header from 'components/Header';
 import Footer from 'components/Footer';
 import { Outlet } from "react-router-dom"
@@ -12,7 +12,7 @@ import { ToastContainer } from 'react-toastify';
 const PrivateLayout = () => {
   const { isAuthenticated, getAccessTokenSilently, logout } = useAuth0();
   // const [loadingUserInformation, setLoadingUserInformation] = useState(false);
-//   const { setUserData } = useUser();
+ const { setUserData } = useUser();
 
   useEffect(() => {
     const fetchAuth0Token = async () => {
@@ -30,14 +30,13 @@ const PrivateLayout = () => {
       await obtenerDatosUsuario(
         (response) => {
           console.log('response con datos del usuario', response);
-          // setUserData(response.data);
+          setUserData(response.data);
         // setLoadingUserInformation(false);
         },
         (err) => {
           console.log('err', err);
-        //   setLoadingUserInformation(false);
-          logout({ returnTo: '' });
-        //   todo
+        //  setLoadingUserInformation(false);
+        // logout({ returnTo: '' });
         }
       );
     };
@@ -45,7 +44,7 @@ const PrivateLayout = () => {
     if (isAuthenticated) {
       fetchAuth0Token();
     }
-  }, [isAuthenticated, getAccessTokenSilently, logout, ]);
+  }, [isAuthenticated, getAccessTokenSilently, logout, setUserData ]);
 
   // if (isLoading || loadingUserInformation) return <ReactLoading type='spin' color='#0091EB' height={100} width={100} className='loading'/>;
 

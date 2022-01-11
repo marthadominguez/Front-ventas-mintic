@@ -1,8 +1,9 @@
 import 'styles/styles.css';
 import 'styles/responsive.css'
+import React, { useState } from "react"
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import PrivateLayout from 'layouts/PrivateLayout';
-import PublicLayout from 'layouts/PublicLayout';
+// import PublicLayout from 'layouts/PublicLayout';
 import RegistroVentas from 'pages/ventas/RegistroVentas';
 import ListadoVentas from 'pages/ventas/ListadoVentas';
 import RegistroProductos from 'pages/productos/RegistroProductos';
@@ -12,16 +13,21 @@ import Login from 'pages/Login';
 import NotFound from 'pages/NotFound';
 import Home from 'pages/Home';
 import { Auth0Provider } from '@auth0/auth0-react';
-
+import { UserContext } from "context/userContext"
 
 function App() {
+
+  const [ userData, setUserData ] = useState({})
+
   return (
     <Auth0Provider
     domain="sistema-ventas.us.auth0.com"
     clientId="QTIh1sIfSTok7zOkD3Y2D9sIAIBEMH2E"
-    redirectUri="https://sistema-ventas-mld.herokuapp.com/"
+    redirectUri='http://localhost:3000/'
+    // redirectUri="https://sistema-ventas-mld.herokuapp.com/"
     audience='api-sistema-ventas'
     >
+       <UserContext.Provider value={{ userData, setUserData }}>
       <div className="App">
         <Router>
           <Routes>
@@ -38,6 +44,7 @@ function App() {
           </Routes>
         </Router>
       </div>
+      </UserContext.Provider>
     </Auth0Provider>
   );
 }
