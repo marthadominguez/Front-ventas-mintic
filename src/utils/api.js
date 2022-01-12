@@ -20,6 +20,16 @@ export const obtenerProductos = async (successCallback, errorCallback) => {
   await axios.request(options).then(successCallback).catch(errorCallback);
 }
 
+export const obtenerProductosDisponibles = async (successCallback, errorCallback) => {
+  const options = {
+    method: 'GET',
+    url: `${baseURL}/productos/disponibles`,
+    params: { '': '' },
+    headers: { 'Content-Type': 'application/json', Authorization: getToken() }
+  };
+  await axios.request(options).then(successCallback).catch(errorCallback);
+}
+
 export const crearProducto = async (data, successCallback, errorCallback) => {
   const options = {
     method: 'POST',
@@ -51,8 +61,13 @@ export const crearVenta = async (data, successCallback, errorCallback) => {
   await axios.request(options).then(successCallback).catch(errorCallback);
 }
 
-export const queryAllVentas = async (successCallback, errorCallback) => {
+export const obtenerVentas = async (successCallback, errorCallback) => {
   const options = { method: 'GET', url: `${baseURL}/ventas/`, headers: { Authorization: getToken() } };
+  await axios.request(options).then(successCallback).catch(errorCallback);
+}
+
+export const eliminarVenta = async (id, successCallback, errorCallback) => {
+  const options = { method: 'DELETE', url: `${baseURL}/ventas/${id}`, headers: { 'Content-Type': 'application/json', Authorization: getToken()}};
   await axios.request(options).then(successCallback).catch(errorCallback);
 }
 

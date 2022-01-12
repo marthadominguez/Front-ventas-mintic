@@ -1,24 +1,38 @@
 import React, { useEffect, useState } from "react"
-import { queryAllVentas } from "../../utils/api"
-
+import { eliminarVenta, obtenerVentas } from "../../utils/api"
+import { toast } from "react-toastify";
+import { Dialog } from "@mui/material"
+import { nanoid } from "nanoid";
 
 const ListadoVentas = () => {
-    const [ventas, setVentas] = useState([])
+    const [ventas, setVentas] = useState([]);
+    const [refetch, setRefetch] = useState(true)
+    const [busqueda, setBusqueda] = useState("");
+    const [ventasFiltradas, setVentasFiltradas] = useState(ventas)   
 
     useEffect(() => {
         const fetchVentas = async () => {
-            await queryAllVentas(
+            await obtenerVentas(
                 (response) => {
                     console.log("ventas:", response);
                     setVentas(response.data);
+                    setRefetch(false)
                 },
                 (error) => {
                     console.error("Salió un error y es:", error)
                 }
             )
         }
-        fetchVentas()
-    }, [])
+        if (refetch) { fetchVentas() }
+    }, [refetch])
+
+    useEffect(() => {
+        setVentasFiltradas(
+            ventas.filter((elemento) => {
+                return JSON.stringify(elemento).toLowerCase().includes(busqueda.toLowerCase());
+            })
+        )
+    }, [busqueda, ventas])
 
     return (
         <>
@@ -26,14 +40,8 @@ const ListadoVentas = () => {
                 <div className="table_header">
                     <h2 >Gestión de Ventas</h2>
                     <div className="search_input">
-                        <input className="search_text" type="search" placeholder="Buscar..." />
-                        <select name="" id="">
-                            <option value="Criterio">- Criterio -</option>
-                            <option value="ID">ID Venta</option>
-                            <option value="Documento">Documento</option>
-                            <option value="Cliente">Cliente</option>
-                        </select>
-                        <button className="search_btn"><span className="material-icons-round search_icon">search</span></button>
+                        <input value={busqueda} onChange={(e) => { setBusqueda(e.target.value) }} className="search_text" type="search" placeholder="Buscar..." />
+                        <span className="material-icons-round search_icon">search</span>
                     </div>
                 </div>
                 <div className="table_canvas">
@@ -42,21 +50,21 @@ const ListadoVentas = () => {
                             <tr className="table_row">
                                 <th className="texto tl">ID</th>
                                 <th className="texto">Nombre Cliente</th>
-                                <th className="texto">Producto</th>
-                                <th>Cant.</th>
-                                <th className="numero">Vr. Total</th>
-                                <th className="numero">Costo Envío</th>
                                 <th className="texto">Medio de Pago</th>
                                 <th className="texto">Contacto</th>
-                                <th className="numero">Fecha</th>
+                                <th className="texto">Fecha</th>
                                 <th className="texto">Vendedor</th>
+                                <th className="texto">Producto</th>
+                                <th>Cant.</th>
+                                <th className="numero">Vr. Total ($)</th>
+                                <th className="numero">Costo Envío ($)</th>
                                 <th className="texto">Estado</th>
-                                <th className="acciones tr">Acciones</th>
+                                <th className="tr"></th>
                             </tr>
                         </thead>
                         <tbody>
-                            {ventas.map((venta, index) => {
-                                return (<FilasVentas venta={venta} key={index}></FilasVentas>)
+                            {ventasFiltradas.map((venta) => {
+                                return (<FilasVentas venta={venta} key={nanoid()} setRefetch={setRefetch}></FilasVentas>)
                             })}
                         </tbody>
                     </table>
@@ -66,33 +74,55 @@ const ListadoVentas = () => {
     )
 }
 
-const FilasVentas = ({ venta }) => {
+const FilasVentas = ({ venta, setRefetch }) => {
+
+    const [openDialog, setOpenDialog] = useState(false)
+
+    const eliminacionVenta = async () => {
+        await eliminarVenta(venta._id,
+            (response) => {
+                console.log(response.data);
+                toast.success("venta eliminada con éxito");
+                setRefetch(true)
+            },
+            (error) => {
+                console.error(error);
+                toast.error("Error eliminando la venta");
+            })
+        setOpenDialog(false);
+    }
 
     return (
         <tr>
             <td className="texto tl">{venta._id.slice(18)}</td>
             <td className="texto">{venta.cliente}</td>
-            <td className="texto">
-                <table className="tn">
-                    {venta.productos.map((p) => { return (<tr><td className="td_nested">{p.nombre}</td></tr>) })}
-                </table>
-            </td>
-            <td>
-                <table className="tn">
-                    {venta.productos.map((p) => { return (<tr className="numero"><td className="td_nested numero">{p.cantidad}</td></tr>) })}
-                </table>
-            </td>
-            <td className="numero">aa</td>
-            <td className="numero">{venta.costoEnvio}</td>
             <td className="texto">{venta.medioPago}</td>
             <td className="texto">{venta.puntoVenta}</td>
-            <td className="numero">fecha</td>
+            <td className="texto">{venta.fecha}</td>
             <td className="texto">{venta.vendedor.email}</td>
-            <td className="texto tr">estado</td>
             <td>
-                <button className="edit_btn"><span className="material-icons edit">edit</span></button>
-                <button className="delete_btn"><span className="material-icons delete">delete</span></button>
+                <table className="data_nested--left">
+                    {venta.productos.map((p) => { return (<tr key={p._id}><td>{p.nombre}</td></tr>) })}
+                </table>
             </td>
+            <td>
+                <table className="data_nested--center">
+                    <tbody>
+                        {venta.productos.map((p) => { return (<tr key={p._id}><td className="q_nested">{p.cantidad}</td></tr>) })}
+                    </tbody></table>
+            </td>
+            <td className="numero">{venta.total.toLocaleString("es-CO")}</td>
+            <td className="numero">{venta.costoEnvio.toLocaleString("es-CO")}</td>
+            <td>
+                <button onClick={() => { setOpenDialog(true) }} className="delete_btn"><span className="material-icons delete">delete</span></button>
+            </td>
+            <Dialog open={openDialog}>
+                <div className="dialog_eliminar_prod">
+                    <h1>¿Está seguro que quiere eliminar la venta?</h1>
+                    <button className="yes" title="Editar" onClick={() => eliminacionVenta()}>SI</button >
+                    <button className="no" title="Eliminar" onClick={() => setOpenDialog(false)}>NO</button>
+                </div>
+            </Dialog>
         </tr >
     )
 }

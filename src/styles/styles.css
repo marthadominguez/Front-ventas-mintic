@@ -506,16 +506,15 @@ th.acciones, td.acciones {
   text-overflow: ellipsis;
 }
 
-.tn .td_nested {
+.data_nested--center tr td, .data_nested--left tr td {
   border: none;
-  padding: .5rem;
+  padding: 0;
   height: fit-content;
-  margin: 0 auto;
 }
 
-.tn {
+.data_nested--center {
   margin: 0 auto;
-}
+} 
 
 .descripcion {
   width: 30rem;

@@ -1,6 +1,6 @@
 import React, { useRef, useState, useEffect } from "react";
 // import { toast } from 'react-toastify';
-import { obtenerProductos, obtenerVendedores, crearVenta } from "utils/api";
+import { obtenerProductosDisponibles, obtenerVendedores, crearVenta } from "utils/api";
 import { nanoid } from "nanoid";
 import { toast } from "react-toastify";
 
@@ -21,7 +21,7 @@ const RegistroVentas = () => {
             );
         };
         const fetchProductos = async () => {
-            await obtenerProductos(
+            await obtenerProductosDisponibles(
                 (response) => { setProductos(response.data) },
                 (error) => { console.error(error) }
             );
@@ -55,9 +55,12 @@ const RegistroVentas = () => {
             cliente: formData.nombreCliente,
             puntoVenta: formData.puntoVenta,
             medioPago: formData.medioPago,
-            costoEnvio: formData.costoEnvio,
+            costoEnvio: parseFloat(formData.costoEnvio),
             vendedor: vendedores.filter((v) => v._id === formData.vendedor)[0],
-            productos: listaProductos
+            productos: listaProductos,
+            total: sumaValor,
+            fecha: formData.fecha,
+            estado: "En proceso"
         }
 
         await crearVenta(
@@ -71,6 +74,8 @@ const RegistroVentas = () => {
                 toast.error("Error creando la venta");
             }
         )
+        e.target.reset();
+        setFilasTabla([])
     }
 
     const agregarNuevoProducto = () => {
@@ -128,7 +133,10 @@ const RegistroVentas = () => {
                 </select>
                 <label htmlFor="costoEnvio">Costo de envío ($)</label>
                 <input className="custom_input" type="number" placeholder="Costo de envío en pesos" name="costoEnvio" id="costoEnvio" required />
-
+                
+                <label htmlFor="fecha">Fecha de pago</label>
+                <input className="custom_input" type="date" placeholder="Fecha" name="fecha" id="fecha" required />
+                
                 <label htmlFor="vendedor">Vendedor</label>
                 <select name="vendedor" id="vendedor" className="custom_input" required defaultValue="">
                     <option value="" disabled>- Seleccione el vendedor -</option>
@@ -175,7 +183,7 @@ const RegistroVentas = () => {
                
                 <span>Valor total:</span>
                 
-                <b><span>${sumaValor}</span></b>
+                <b><span>$ {sumaValor.toLocaleString("es-CO")}</span></b>
 
                 <div className="register_btn">
                     <button type="reset" className="">Reset</button>
@@ -193,7 +201,7 @@ const FilaProducto = ({ ft, index, modificarProducto, quitarProducto }) => {
     return (
         <tr>
             <td className="texto">{`${producto.nombre} - ${producto.tamano}cm`}</td>
-            <td className="numero">{producto.valorUnitario}</td>
+            <td className="numero">{producto.valorUnitario.toLocaleString("es-CO")}</td>
             <td className="numero">
                 <label htmlFor={`cantidad_${index}`}>
                     <input
@@ -203,13 +211,13 @@ const FilaProducto = ({ ft, index, modificarProducto, quitarProducto }) => {
                         value={producto.cantidad}
                         min="1" max="50"
                         onChange={(e) => {
-                            modificarProducto(producto, e.target.value === "" ? "0" : e.target.value);
-                            setProducto({ ...producto, cantidad: e.target.value, total: parseFloat(producto.valorUnitario) * parseFloat(e.target.value === "" ? "0" : e.target.value) })
+                            modificarProducto(producto, parseFloat(e.target.value === "" ? "0" : e.target.value));
+                            setProducto({ ...producto, cantidad: e.target.value, total: producto.valorUnitario * e.target.value === "" ? "0" : e.target.value })
                         }}
                     />
                 </label>
             </td>
-            <td className="numero">{parseFloat(producto.total ?? 0)}</td>
+            <td className="numero">{parseFloat(producto.total ?? 0).toLocaleString("es-CO")}</td>
             <td className="acciones">
                 <button onClick={() => { quitarProducto(producto) }} className="delete_btn"><span className="material-icons delete">remove_circle_outline</span></button>
             </td>

@@ -23,9 +23,7 @@ const ListadoProductos = () => {
                 }
             )
         }
-        if (refetch) {
-            fetchProductos()
-        }
+        if (refetch) { fetchProductos() }
 
     }, [refetch])
 
@@ -87,7 +85,7 @@ const FilaProducto = ({ p, setRefetch }) => {
         descripcion: p.descripcion,
         estado: p.estado,
         tamano: p.tamano,
-        valorUnitario: p.valorUnitario
+        valorUnitario: (p.valorUnitario)
     })
 
     const actualizarProducto = async () => {
@@ -98,7 +96,7 @@ const FilaProducto = ({ p, setRefetch }) => {
                 descripcion: infoNuevoProducto.descripcion,
                 estado: infoNuevoProducto.estado,
                 tamano: infoNuevoProducto.tamano,
-                valorUnitario: infoNuevoProducto.valorUnitario
+                valorUnitario: parseFloat(infoNuevoProducto.valorUnitario)
             },
             (response) => {
                 console.log(response.data);
@@ -149,10 +147,10 @@ const FilaProducto = ({ p, setRefetch }) => {
                 <>
                     <td className="texto tl">{p._id.slice(18)}</td>
                     <td className="texto">{p.nombre}</td>
-                    <td className="texto">{p.descripcion}</td> 
+                    <td className="texto">{p.descripcion}</td>
                     <td className="texto">{p.estado}</td>
                     <td className="numero">{p.tamano}</td>
-                    <td className="numero">{p.valorUnitario}</td>
+                    <td className="numero">{p.valorUnitario.toLocaleString("es-CO")}</td>
                 </>)}
             {editar ? (<>
                 <td className="acciones tr">

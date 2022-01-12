@@ -40,7 +40,7 @@ const ListadoUsuarios = () => {
                     <table className="table">
                         <thead>
                             <tr className="table_row">
-                                <th className="texto">Nombre</th>
+                                <th className="texto tl">Nombre</th>
                                 <th className="texto">E-mail</th>
                                 <th className="texto">Usuario</th>
                                 <th className="acciones">Rol</th>
@@ -51,7 +51,7 @@ const ListadoUsuarios = () => {
                             {usuariosFiltrados.map((u) => {
                                 return (
                                     <tr key={nanoid()}>
-                                        <td>{u.name}</td>
+                                        <td className="tl">{u.name}</td>
                                         <td>{u.email}</td>
                                         <td>{u.nickname}</td>
                                         <td className="acciones"><RolesUsuario user={u}></RolesUsuario></td>

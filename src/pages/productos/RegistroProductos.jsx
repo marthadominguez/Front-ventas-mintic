@@ -20,7 +20,7 @@ const RegistroProductos = () => {
                 descripcion: nuevoProducto.descripcion,
                 estado: nuevoProducto.estado,
                 tamano: nuevoProducto.tamano,
-                valorUnitario: nuevoProducto.valorUnitario,
+                valorUnitario: parseFloat(nuevoProducto.valorUnitario),
             },
             (response) => {
                 console.log(response.data);
