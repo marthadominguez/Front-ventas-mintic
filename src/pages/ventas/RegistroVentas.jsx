@@ -107,7 +107,9 @@ const RegistroVentas = () => {
 
     let sumaValor = 0
     filasTabla.forEach((el) => {
-        el.total > 0 ? (sumaValor += el.total) : (sumaValor = sumaValor)
+        if (el.total > 0) {
+            sumaValor += el.total
+        } else { return sumaValor }
     })
 
     return (
@@ -133,10 +135,10 @@ const RegistroVentas = () => {
                 </select>
                 <label htmlFor="costoEnvio">Costo de envío ($)</label>
                 <input className="custom_input" type="number" placeholder="Costo de envío en pesos" name="costoEnvio" id="costoEnvio" required />
-                
+
                 <label htmlFor="fecha">Fecha de pago</label>
                 <input className="custom_input" type="date" placeholder="Fecha" name="fecha" id="fecha" required />
-                
+
                 <label htmlFor="vendedor">Vendedor</label>
                 <select name="vendedor" id="vendedor" className="custom_input" required defaultValue="">
                     <option value="" disabled>- Seleccione el vendedor -</option>
@@ -180,9 +182,9 @@ const RegistroVentas = () => {
                         )
                     })}</tbody>
                 </table>
-               
+
                 <span>Valor total:</span>
-                
+
                 <b><span>$ {sumaValor.toLocaleString("es-CO")}</span></b>
 
                 <div className="register_btn">

@@ -23,8 +23,8 @@ function App() {
     <Auth0Provider
     domain="sistema-ventas.us.auth0.com"
     clientId="QTIh1sIfSTok7zOkD3Y2D9sIAIBEMH2E"
-    redirectUri='http://localhost:3000/'
-    // redirectUri="https://sistema-ventas-mld.herokuapp.com/"
+    // redirectUri='http://localhost:3000/'
+    redirectUri="https://sistema-ventas-mld.herokuapp.com/"
     audience='api-sistema-ventas'
     >
        <UserContext.Provider value={{ userData, setUserData }}>
