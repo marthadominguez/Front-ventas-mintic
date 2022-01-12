@@ -684,6 +684,19 @@ input[type=number] {
   font-family: var(--fuente-secundaria);
 }
 
+.custom_input_ventas {
+  width: 5.1rem;
+  height: 3rem;
+  margin: .5rem;
+  padding: 0 1rem;
+  background-color: var(--gris-claro);
+  border-radius: 1rem;
+  border-style: none;
+  outline: none;
+  color: var(--gris-oscuro);
+  font-family: var(--fuente-secundaria);
+}
+
 footer p {
   display: inline;
   margin: 0 .7rem;

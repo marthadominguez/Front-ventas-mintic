@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react"
-import { eliminarVenta, obtenerVentas } from "../../utils/api"
+import { eliminarVenta, obtenerVentas, editarVenta } from "../../utils/api"
 import { toast } from "react-toastify";
 import { Dialog } from "@mui/material"
 import { nanoid } from "nanoid";
@@ -8,7 +8,7 @@ const ListadoVentas = () => {
     const [ventas, setVentas] = useState([]);
     const [refetch, setRefetch] = useState(true)
     const [busqueda, setBusqueda] = useState("");
-    const [ventasFiltradas, setVentasFiltradas] = useState(ventas)   
+    const [ventasFiltradas, setVentasFiltradas] = useState(ventas)
 
     useEffect(() => {
         const fetchVentas = async () => {
@@ -113,6 +113,9 @@ const FilasVentas = ({ venta, setRefetch }) => {
             </td>
             <td className="numero">{venta.total.toLocaleString("es-CO")}</td>
             <td className="numero">{venta.costoEnvio.toLocaleString("es-CO")}</td>
+            <td className="texto">
+                <EstadoVentas venta={venta}></EstadoVentas>
+            </td>
             <td>
                 <button onClick={() => { setOpenDialog(true) }} className="delete_btn"><span className="material-icons delete">delete</span></button>
             </td>
@@ -124,6 +127,30 @@ const FilasVentas = ({ venta, setRefetch }) => {
                 </div>
             </Dialog>
         </tr >
+    )
+}
+
+const EstadoVentas = ({ venta }) => {
+    const [estado, setEstado] = useState(venta.estado)
+
+    useEffect(() => {
+        const EditEstadoVenta = async () => {
+            await editarVenta(venta._id, { estado }, (response) => { console.log(response.data) }, (error) => { console.error(error) })
+        }
+        if (venta.estado !== estado) {
+            EditEstadoVenta()
+        }
+    }
+        , [estado, venta])
+    return ( 
+        <select className="custom_input_ventas" value={estado} onChange={(e) => setEstado(e.target.value)}>
+            <option value="" disabled>
+                Seleccione
+            </option>
+            <option value='Proceso'>Proceso</option>
+            <option value='Entregada'>Entregada</option>
+            <option value='Cancelada'>Cancelada</option>
+        </select>
     )
 }
 
