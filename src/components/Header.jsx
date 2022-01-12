@@ -4,8 +4,8 @@ const Header = () => {
     const { user, loginWithRedirect, logout } = useAuth0();
 
     const cerrarSesion = () => {
-        // logout({ returnTo: 'https://sistema-ventas-mld.herokuapp.com/' });
-        logout({ returnTo: 'http://localhost:3000/' });
+        logout({ returnTo: 'https://sistema-ventas-mld.herokuapp.com/' });
+        // logout({ returnTo: 'http://localhost:3000/' });
         localStorage.setItem('token', null);
     };
 
@@ -23,7 +23,7 @@ const Header = () => {
                     </>) : (
                     <>
                         <span>Invitado(a)</span><span className="material-icons-round header_icons">account_circle</span>
-                        <button title="Iniciar sesión" className='btn_bg' onClick={()=>{loginWithRedirect()}}>
+                        <button title="Iniciar sesión" className='btn_bg' onClick={()=>{loginWithRedirect({ui_locales: 'es'})}}>
                             <span className="material-icons-round header_button">login</span>
                         </button>
                     </>)}
