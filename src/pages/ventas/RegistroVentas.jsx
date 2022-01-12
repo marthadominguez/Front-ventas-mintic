@@ -2,6 +2,7 @@ import React, { useRef, useState, useEffect } from "react";
 // import { toast } from 'react-toastify';
 import { obtenerProductos, obtenerVendedores, crearVenta } from "utils/api";
 import { nanoid } from "nanoid";
+import { toast } from "react-toastify";
 
 const RegistroVentas = () => {
     const form = useRef(null);
@@ -29,57 +30,52 @@ const RegistroVentas = () => {
         fetchProductos();
     }, []);
 
-    // Debugging
-    useEffect(()=>{
-    })
-
-    useEffect(()=>{
+    useEffect(() => {
         setProductosTabla(filasTabla)
-    },[filasTabla, setProductosTabla])
+    }, [filasTabla, setProductosTabla])
 
     const submitForm = async (e) => {
         e.preventDefault();
         const fd = new FormData(form.current);
         const formData = {};
-        fd.forEach((value,key)=>{
+        fd.forEach((value, key) => {
             formData[key] = value;
         })
 
-        console.log("formdata es:", formData)
-
-        const listaProductos = Object.keys(formData).map((k)=>{
+        const listaProductos = Object.keys(formData).map((k) => {
             if (k.includes("producto")) {
-                return productosTabla.filter((p)=>p._id === formData[k][0])
+                return productosTabla.filter((p) => p._id === formData[k])[0]
             } return null;
-        }).filter((p)=>p);
+        }).filter((p) => p);
         // el anterior filtro me filtra los que no son NULL. Para que no me salgan undefined. 
 
+        console.log("productosTabla", productosTabla)
+
         const datosVenta = {
-            cliente: formData.cliente, 
+            cliente: formData.nombreCliente,
             puntoVenta: formData.puntoVenta,
             medioPago: formData.medioPago,
             costoEnvio: formData.costoEnvio,
             vendedor: vendedores.filter((v) => v._id === formData.vendedor)[0],
-            cantidad: formData.cantidad,
             productos: listaProductos
         }
 
-        console.log("datos venta:", datosVenta)
-
         await crearVenta(
-            datosVenta, 
+            datosVenta,
             (response) => {
-                console.log("Datos venta: La respuesta que se recibe es:", response);
+                console.log("Respuesta", response);
+                toast.success("Venta agregada con éxito");
             },
             (error) => {
-                console.error("Salió un error y es:", error)
+                console.error("Salió un error y es:", error);
+                toast.error("Error creando la venta");
             }
         )
     }
 
     const agregarNuevoProducto = () => {
         if (productoAAgregar._id === undefined) {
-           <></>
+            <></>
         } else {
             setFilasTabla([...filasTabla, productoAAgregar]);
             setProductos(productos.filter((p) => p._id !== productoAAgregar._id));
@@ -89,20 +85,25 @@ const RegistroVentas = () => {
 
     const modificarProducto = (producto, cantidad) => {
         setFilasTabla(
-            filasTabla.map((ft)=>{
+            filasTabla.map((ft) => {
                 if (ft._id === producto._id) {
                     ft.cantidad = cantidad;
                     ft.total = producto.valorUnitario * cantidad;
                 }
                 return ft;
             })
-        )
-     };
+        );
+    };
 
     const quitarProducto = (productoAQuitar) => {
         setFilasTabla(filasTabla.filter((ft) => ft._id !== productoAQuitar._id));
         setProductos([...productos, productoAQuitar]);
     };
+
+    let sumaValor = 0
+    filasTabla.forEach((el) => {
+        el.total > 0 ? (sumaValor += el.total) : (sumaValor = sumaValor)
+    })
 
     return (
         <div className="custom_record">
@@ -127,7 +128,7 @@ const RegistroVentas = () => {
                 </select>
                 <label htmlFor="costoEnvio">Costo de envío ($)</label>
                 <input className="custom_input" type="number" placeholder="Costo de envío en pesos" name="costoEnvio" id="costoEnvio" required />
-               
+
                 <label htmlFor="vendedor">Vendedor</label>
                 <select name="vendedor" id="vendedor" className="custom_input" required defaultValue="">
                     <option value="" disabled>- Seleccione el vendedor -</option>
@@ -137,7 +138,7 @@ const RegistroVentas = () => {
                         )
                     })}
                 </select>
-                
+
                 <label htmlFor="producto">Producto</label>
                 <div className="select_add-producto">
                     <select
@@ -166,10 +167,15 @@ const RegistroVentas = () => {
                     </thead>
 
                     <tbody>{filasTabla.map((ft, index) => {
-                        return(
-                        <FilaProducto key={ft._id} ft={ft} index={index} quitarProducto={quitarProducto} modificarProducto={modificarProducto} ></FilaProducto>
-                    )})}</tbody>
+                        return (
+                            <FilaProducto key={ft._id} ft={ft} index={index} quitarProducto={quitarProducto} modificarProducto={modificarProducto} ></FilaProducto>
+                        )
+                    })}</tbody>
                 </table>
+               
+                <span>Valor total:</span>
+                
+                <b><span>${sumaValor}</span></b>
 
                 <div className="register_btn">
                     <button type="reset" className="">Reset</button>
@@ -180,16 +186,9 @@ const RegistroVentas = () => {
     )
 }
 
-const FilaProducto = ({ft, index, modificarProducto, quitarProducto}) => {
+const FilaProducto = ({ ft, index, modificarProducto, quitarProducto }) => {
 
     const [producto, setProducto] = useState(ft)
-
-    useEffect(()=>{
-        console.log("producto:", producto);
-        console.log("valor unitario", producto.valorUnitario)
-        console.log("cantidad", producto.cantidad)
-        console.log("total", producto.total)
-    }, [producto])
 
     return (
         <tr>
@@ -197,24 +196,24 @@ const FilaProducto = ({ft, index, modificarProducto, quitarProducto}) => {
             <td className="numero">{producto.valorUnitario}</td>
             <td className="numero">
                 <label htmlFor={`cantidad_${index}`}>
-                <input
-                className="cantidad_input"
-                type="number"
-                name={`cantidad_${index}`}
-                value={producto.cantidad}
-                min="1" max="50"
-                onChange={(e)=>{
-                    modificarProducto(producto, e.target.value === "" ? "0" : e.target.value);
-                    setProducto({...producto, cantidad: e.target.value, total: parseFloat(producto.valorUnitario) * parseFloat(e.target.value === "" ? "0" : e.target.value)})
-                }}
-                />
+                    <input
+                        className="cantidad_input"
+                        type="number"
+                        name={`cantidad_${index}`}
+                        value={producto.cantidad}
+                        min="1" max="50"
+                        onChange={(e) => {
+                            modificarProducto(producto, e.target.value === "" ? "0" : e.target.value);
+                            setProducto({ ...producto, cantidad: e.target.value, total: parseFloat(producto.valorUnitario) * parseFloat(e.target.value === "" ? "0" : e.target.value) })
+                        }}
+                    />
                 </label>
             </td>
             <td className="numero">{parseFloat(producto.total ?? 0)}</td>
             <td className="acciones">
                 <button onClick={() => { quitarProducto(producto) }} className="delete_btn"><span className="material-icons delete">remove_circle_outline</span></button>
             </td>
-            <td className="hidden"><input hidden defaultValue={producto._id} name={`producto_${index}`}/></td>
+            <td className="hidden"><input hidden defaultValue={producto._id} name={`producto_${index}`} /></td>
         </tr>
     )
 

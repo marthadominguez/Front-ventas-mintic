@@ -12,7 +12,6 @@ const ListadoProductos = () => {
 
     useEffect(() => {
         const fetchProductos = async () => {
-
             await obtenerProductos(
                 (response) => {
                     console.log("Productos:", response);
@@ -52,13 +51,13 @@ const ListadoProductos = () => {
                     <table className="table">
                         <thead>
                             <tr className="table_row">
-                                <th className="texto">ID</th>
+                                <th className="texto tl">ID</th>
                                 <th className="texto">Nombre</th>
                                 <th className="texto">Descripción</th>
                                 <th className="texto">Estado</th>
                                 <th className="numero">Tamaño (cm)</th>
                                 <th className="numero">Vr. Unitario ($)</th>
-                                <th className="acciones">Acciones</th>
+                                <th className="acciones tr">Acciones</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -125,7 +124,7 @@ const FilaProducto = ({ p, setRefetch }) => {
             },
             (error) => {
                 console.error(error);
-                toast.error("Error eliminando el producto")
+                toast.error("Error eliminando el producto");
             },
         )
         setOpenDialog(false);
@@ -148,21 +147,21 @@ const FilaProducto = ({ p, setRefetch }) => {
                     <td><input type="number" name="tamano" className="edit_input numero" value={infoNuevoProducto.valorUnitario} onChange={(e) => setInfoNuevoProducto({ ...infoNuevoProducto, valorUnitario: e.target.value })} /></td>
                 </>) : (
                 <>
-                    <td className="texto">{p._id.slice(18)}</td>
+                    <td className="texto tl">{p._id.slice(18)}</td>
                     <td className="texto">{p.nombre}</td>
-                    <td className="texto">{p.descripcion}</td>
+                    <td className="texto">{p.descripcion}</td> 
                     <td className="texto">{p.estado}</td>
                     <td className="numero">{p.tamano}</td>
                     <td className="numero">{p.valorUnitario}</td>
                 </>)}
             {editar ? (<>
-                <td className="acciones">
+                <td className="acciones tr">
                     <button title="Editar" onClick={() => actualizarProducto()} className="edit_btn"><span className="material-icons edit">done</span></button >
                     <button title="Cancelar" onClick={() => setEditar(!editar)} className="delete_btn"><span className="material-icons delete">clear</span></button>
                 </td >
             </>) : (
                 <>
-                    <td className="acciones">
+                    <td className="acciones tr">
                         <button title="Editar" onClick={() => setEditar(!editar)} className="edit_btn"><span className="material-icons edit">edit</span></button >
                         <button title="Eliminar" onClick={() => setOpenDialog(true)} className="delete_btn"><span className="material-icons delete">delete</span></button>
                     </td >

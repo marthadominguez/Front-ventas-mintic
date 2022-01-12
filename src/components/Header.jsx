@@ -3,8 +3,6 @@ import { useAuth0 } from '@auth0/auth0-react';
 const Header = () => {
     const { user, loginWithRedirect, logout } = useAuth0();
 
-    console.log('usuario es', user);
-
     const cerrarSesion = () => {
         // logout({ returnTo: 'https://sistema-ventas-mld.herokuapp.com/' });
         logout({ returnTo: 'http://localhost:3000/' });

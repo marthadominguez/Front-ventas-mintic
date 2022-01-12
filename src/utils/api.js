@@ -51,6 +51,11 @@ export const crearVenta = async (data, successCallback, errorCallback) => {
   await axios.request(options).then(successCallback).catch(errorCallback);
 }
 
+export const queryAllVentas = async (successCallback, errorCallback) => {
+  const options = { method: 'GET', url: `${baseURL}/ventas/`, headers: { Authorization: getToken() } };
+  await axios.request(options).then(successCallback).catch(errorCallback);
+}
+
 // CRUD DE USUARIOS
 export const obtenerUsuarios = async (successCallback, errorCallback) => {
   const options = { method: 'GET', url: `${baseURL}/usuarios/`, headers: { Authorization: getToken() } };

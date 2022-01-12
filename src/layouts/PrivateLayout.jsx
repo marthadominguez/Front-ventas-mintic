@@ -7,6 +7,7 @@ import Header from 'components/Header';
 import Footer from 'components/Footer';
 import { Outlet } from "react-router-dom"
 import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 // import ReactLoading from 'react-loading';
 
 const PrivateLayout = () => {
@@ -29,7 +30,6 @@ const PrivateLayout = () => {
       // 3. Tercer paso es enviarle el token a el backend
       await obtenerDatosUsuario(
         (response) => {
-          console.log('response con datos del usuario', response);
           setUserData(response.data);
         // setLoadingUserInformation(false);
         },
