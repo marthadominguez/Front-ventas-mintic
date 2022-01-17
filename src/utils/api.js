@@ -9,6 +9,23 @@ const getToken = () => {
   return `Bearer ${localStorage.getItem('token')}`;
 };
 
+//Login
+var options = {
+  method: 'PUT',
+  url: `https://${baseURL}/api/v2/prompts/login/custom-text/en`,
+  headers: {
+    'content-type': 'application/json',
+    authorization: 'Bearer MGMT_API_ACCESS_TOKEN'
+  },
+  data: {login: {description: "Log in to Sistema de ventas to continue"}}
+};
+
+axios.request(options).then(function (response) {
+  console.log(response.data);
+}).catch(function (error) {
+  console.error(error);
+});
+
 // CRUD DE PRODUCTOS
 export const obtenerProductos = async (successCallback, errorCallback) => {
   const options = {
