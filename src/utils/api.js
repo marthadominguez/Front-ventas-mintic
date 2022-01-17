@@ -9,26 +9,6 @@ const getToken = () => {
   return `Bearer ${localStorage.getItem('token')}`;
 };
 
-//Login
-var options = {
-  method: 'PUT',
-  url: "https://sistema-ventas.us.auth0.com/api/v2/prompts/login/custom-text/en",
-  headers: {
-    'content-type': 'application/json',
-    authorization: 'Bearer MGMT_API_ACCESS_TOKEN'
-  },
-  data: {login: {
-  description: "Inicia sesión en el sistema de ventas",
-  title: "Bienvenido(a)"
-}}
-};
-
-axios.request(options).then(function (response) {
-  console.log(response.data);
-}).catch(function (error) {
-  console.error(error);
-});
-
 // CRUD DE PRODUCTOS
 export const obtenerProductos = async (successCallback, errorCallback) => {
   const options = {
