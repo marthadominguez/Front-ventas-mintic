@@ -18,8 +18,8 @@ var options = {
     authorization: 'Bearer MGMT_API_ACCESS_TOKEN'
   },
   data: {login: {
-  "description": "Inicia sesion en el sistema de ventas",
-  "title": "Bienvenido(a)"
+  description: "Inicia sesion en el sistema de ventas",
+  title: "Bienvenido(a)"
 }}
 };
 
