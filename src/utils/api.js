@@ -17,7 +17,10 @@ var options = {
     'content-type': 'application/json',
     authorization: 'Bearer MGMT_API_ACCESS_TOKEN'
   },
-  data: {login: {description: "Log in to Sistema de ventas to continue"}}
+  data: {login: {
+  "description": "Inicia sesion en el sistema de ventas",
+  "title": "Bienvenido(a)"
+}}
 };
 
 axios.request(options).then(function (response) {
