@@ -11,7 +11,6 @@ import ListadoProductos from 'pages/productos/ListadoProductos';
 import ListadoUsuarios from 'pages/usuarios/ListadoUsuarios';
 import Login from 'pages/Login';
 import NotFound from 'pages/NotFound';
-import Home from 'pages/Home';
 import { Auth0Provider } from '@auth0/auth0-react';
 import { UserContext } from "context/userContext"
 
@@ -37,7 +36,6 @@ function App() {
                 <Route path="registro-productos" element={<RegistroProductos />} />
                 <Route path="listado-productos" element={<ListadoProductos />} />
                 <Route path="listado-usuarios" element={<ListadoUsuarios />} />
-                <Route path="home" element={<Home />} />
               </Route>
               <Route path="login" element={<Login />} />
               <Route path="*" element={<NotFound />} />
