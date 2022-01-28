@@ -14,6 +14,3 @@ Realizado durante el Ciclo3 del programa de formación en habilidaes de programa
 https://sistema-ventas-mld.herokuapp.com/
 
 ![screenshot](https://i.ibb.co/LgByvCj/Captura6.png)
-
-
-
