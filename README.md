@@ -11,6 +11,9 @@ Realizado durante el Ciclo3 del programa de formación en habilidaes de programa
 - Express
 
 ## Demo
+- Usuario para ingresar: `invitado@ejemplo.com`
+- Contraseña: `123456Aa*`
+
 https://sistema-ventas-mld.herokuapp.com/
 
 ![screenshot](https://i.ibb.co/LgByvCj/Captura6.png)
