@@ -43,55 +43,58 @@ const ListadoVentas = () => {
 
   return (
     <>
-      <div className="table_container">
-        <div className="table_header">
-          <h2>Gestión de Ventas</h2>
-          <div className="search_input">
-            <input
-              value={busqueda}
-              onChange={(e) => {
-                setBusqueda(e.target.value);
-              }}
-              className="search_text"
-              type="search"
-              placeholder="Buscar..."
-            />
-            <span className="material-icons-round search_icon">search</span>
+      {loading ? (
+        <Loading />
+      ) : (
+        <div className="table_container">
+          <div className="table_header">
+            <h2>Gestión de Ventas</h2>
+            <div className="search_input">
+              <input
+                value={busqueda}
+                onChange={(e) => {
+                  setBusqueda(e.target.value);
+                }}
+                className="search_text"
+                type="search"
+                placeholder="Buscar..."
+              />
+              <span className="material-icons-round search_icon">search</span>
+            </div>
+          </div>
+          <div className="table_canvas">
+            <table className="table">
+              <thead>
+                <tr className="table_row">
+                  <th className="texto tl">ID</th>
+                  <th className="texto">Nombre Cliente</th>
+                  <th className="texto">Medio de Pago</th>
+                  <th className="texto">Contacto</th>
+                  <th className="texto">Fecha</th>
+                  <th className="texto">Vendedor</th>
+                  <th className="texto">Producto</th>
+                  <th>Cant.</th>
+                  <th className="numero">Vr. Total ($)</th>
+                  <th className="numero">Costo Envío ($)</th>
+                  <th className="texto">Estado</th>
+                  <th className="tr"></th>
+                </tr>
+              </thead>
+              <tbody>
+                {ventasFiltradas.map((venta) => {
+                  return (
+                    <FilasVentas
+                      venta={venta}
+                      key={nanoid()}
+                      setRefetch={setRefetch}
+                    ></FilasVentas>
+                  );
+                })}
+              </tbody>
+            </table>
           </div>
         </div>
-        <div className="table_canvas">
-          <table className="table">
-            <thead>
-              <tr className="table_row">
-                <th className="texto tl">ID</th>
-                <th className="texto">Nombre Cliente</th>
-                <th className="texto">Medio de Pago</th>
-                <th className="texto">Contacto</th>
-                <th className="texto">Fecha</th>
-                <th className="texto">Vendedor</th>
-                <th className="texto">Producto</th>
-                <th>Cant.</th>
-                <th className="numero">Vr. Total ($)</th>
-                <th className="numero">Costo Envío ($)</th>
-                <th className="texto">Estado</th>
-                <th className="tr"></th>
-              </tr>
-            </thead>
-            <tbody>
-              {ventasFiltradas.map((venta) => {
-                return (
-                  <FilasVentas
-                    venta={venta}
-                    key={nanoid()}
-                    setRefetch={setRefetch}
-                    loading={loading}
-                  ></FilasVentas>
-                );
-              })}
-            </tbody>
-          </table>
-        </div>
-      </div>
+      )}
     </>
   );
 };
@@ -116,7 +119,6 @@ const FilasVentas = ({ venta, setRefetch, loading }) => {
   };
 
   return (
-    <> {loading ? (<Loading/>) : (
     <tr>
       <td className="texto tl">{venta._id.slice(18)}</td>
       <td className="texto">{venta.cliente}</td>
@@ -182,7 +184,7 @@ const FilasVentas = ({ venta, setRefetch, loading }) => {
           </button>
         </div>
       </Dialog>
-    </tr>)}</>
+    </tr>
   );
 };
 
