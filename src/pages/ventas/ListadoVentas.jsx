@@ -10,12 +10,14 @@ const ListadoVentas = () => {
   const [refetch, setRefetch] = useState(true);
   const [busqueda, setBusqueda] = useState("");
   const [ventasFiltradas, setVentasFiltradas] = useState(ventas);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchVentas = async () => {
       await obtenerVentas(
         (response) => {
           console.log("ventas:", response);
+          setLoading(false);
           setVentas(response.data);
           setRefetch(false);
         },
@@ -82,6 +84,7 @@ const ListadoVentas = () => {
                     venta={venta}
                     key={nanoid()}
                     setRefetch={setRefetch}
+                    loading={loading}
                   ></FilasVentas>
                 );
               })}
@@ -93,7 +96,7 @@ const ListadoVentas = () => {
   );
 };
 
-const FilasVentas = ({ venta, setRefetch }) => {
+const FilasVentas = ({ venta, setRefetch, loading }) => {
   const [openDialog, setOpenDialog] = useState(false);
 
   const eliminacionVenta = async () => {
