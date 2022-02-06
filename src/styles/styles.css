@@ -741,5 +741,6 @@ footer i {
 .loading {
   color: var(--gris-oscuro);
   font-family: var(--fuente-secundaria);
-  font-size: 1.2rem;
+  font-size: 3rem;
+  margin: 10px;
 }
