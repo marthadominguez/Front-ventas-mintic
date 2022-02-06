@@ -7,7 +7,7 @@ import {
   eliminarProducto,
   editarProducto,
 } from "utils/api.js";
-import LoadingBubbles from "components/LoadingBubbles";
+import Loading from "components/Loading";
 
 const ListadoProductos = () => {
   const [productos, setProductos] = useState([]);
@@ -44,56 +44,55 @@ const ListadoProductos = () => {
       })
     );
   }, [busqueda, productos]);
+
   return (
     <>
       {loading ? (
-        <LoadingBubbles></LoadingBubbles>
+        <Loading />
       ) : (
-        <>
-          <div className="table_container">
-            <div className="table_header" id="listado_venta">
-              <h2>Gestión de Productos</h2>
-              <div className="search_input">
-                <input
-                  value={busqueda}
-                  onChange={(e) => {
-                    setBusqueda(e.target.value);
-                  }}
-                  className="search_text"
-                  type="search"
-                  placeholder="Buscar..."
-                />
-                <span className="material-icons-round search_icon">search</span>
-              </div>
-            </div>
-            <div className="table_canvas">
-              <table className="table">
-                <thead>
-                  <tr className="table_row">
-                    <th className="texto tl">ID</th>
-                    <th className="texto">Nombre</th>
-                    <th className="texto">Descripción</th>
-                    <th className="texto">Estado</th>
-                    <th className="numero">Tamaño (cm)</th>
-                    <th className="numero">Vr. Unitario ($)</th>
-                    <th className="acciones tr">Acciones</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {productosFiltrados.map((p) => {
-                    return (
-                      <FilaProducto
-                        p={p}
-                        key={nanoid()}
-                        setRefetch={setRefetch}
-                      ></FilaProducto>
-                    );
-                  })}
-                </tbody>
-              </table>
+        <div className="table_container">
+          <div className="table_header" id="listado_venta">
+            <h2>Gestión de Productos</h2>
+            <div className="search_input">
+              <input
+                value={busqueda}
+                onChange={(e) => {
+                  setBusqueda(e.target.value);
+                }}
+                className="search_text"
+                type="search"
+                placeholder="Buscar..."
+              />
+              <span className="material-icons-round search_icon">search</span>
             </div>
           </div>
-        </>
+          <div className="table_canvas">
+            <table className="table">
+              <thead>
+                <tr className="table_row">
+                  <th className="texto tl">ID</th>
+                  <th className="texto">Nombre</th>
+                  <th className="texto">Descripción</th>
+                  <th className="texto">Estado</th>
+                  <th className="numero">Tamaño (cm)</th>
+                  <th className="numero">Vr. Unitario ($)</th>
+                  <th className="acciones tr">Acciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                {productosFiltrados.map((p) => {
+                  return (
+                    <FilaProducto
+                      p={p}
+                      key={nanoid()}
+                      setRefetch={setRefetch}
+                    ></FilaProducto>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
+        </div>
       )}
     </>
   );

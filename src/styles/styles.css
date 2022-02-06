@@ -737,3 +737,9 @@ footer i {
   font-size: 2rem;
   color: #96a7b8;
 }
+
+.loading {
+  color: var(--gris-oscuro);
+  font-family: var(--fuente-secundaria);
+  font-size: 1.2rem;
+}
