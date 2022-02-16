@@ -2,7 +2,7 @@
 
 Proyecto desarrollado en React para gestionar ventas, productos, y usuarios a través de diversos módulos. Auth0 se utiliza para la autenticación del usuario y manejo de roles y permisos dentro del aplicativo. Actualmente todos los usuarios registrados entran con permisos. Es necesario iniciar sesión para visualizar la información. 
 
-Realizado durante el Ciclo3 del programa de formación en habilidaes de programación de MinTIC2021.
+Realizado durante el Ciclo3 del programa de formación en habilidaes de programación de MisionTIC2021.
 
 ## Tecnologías:
 - React
